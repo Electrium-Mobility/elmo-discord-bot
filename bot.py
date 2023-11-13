@@ -1,16 +1,22 @@
 import discord 
 import responses
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 async def send_message(message, user_message, is_private):
     try:
         response = responses.handle_response(user_message)
         await message.author.send(response) if is_private else await message.channel.send(response)
     except Exception as e:
-        print(e)
+        #print(e)
+        print("OOPS, an error has occured")
         
 
 def run_discord_bot():
-    TOKEN = 'MTE3MjMzNzY1MTcxNDYyOTY2Mw.GHpa4h.-mLYqphUgyd8P9wqSGuXkgb48I7HJgUfpKVEwc'
+    TOKEN = os.getenv('DISCORD_TOKEN')  # Retrieve token from environment variable
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)
