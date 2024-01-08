@@ -1,45 +1,40 @@
 import discord 
-import responses
 from dotenv import load_dotenv
+from discord.ext import commands
 import os
 
 # Load environment variables from .env file
 load_dotenv()
 
-async def send_message(message, user_message, is_private):
-    try:
-        response = responses.handle_response(user_message)
-        await message.author.send(response) if is_private else await message.channel.send(response)
-    except Exception as e:
-        #print(e)
-        print("OOPS, an error has occured")
-        
-
 def run_discord_bot():
     TOKEN = os.getenv('DISCORD_TOKEN')  # Retrieve token from environment variable
     intents = discord.Intents.default()
+    intents.members = True
     intents.message_content = True
-    client = discord.Client(intents=intents)
+    description = "Electrium's discord bot"
+    bot = commands.Bot(command_prefix='/', description=description, intents=intents)
     
-    @client.event
+    @bot.event
     async def on_ready():
-        print(f'{client.user} is now running!')
-    
-    @client.event
-    async def on_message(message):
-        # Check is message author is the channel to prevent infinite loop
-        if message.author == client.user:
-            return
-        username = str(message.author)
-        user_message = str(message.content)
-        channel = str(message.channel)
-        print(f'Message from {username} ({channel}) : {user_message}')
+        print(f'Logged in as {bot.user} (ID: {bot.user.id})')
+        print('------')
+
+    # /echo for debugging
+    @bot.command(name = 'echo', help = 'repeat entered text, for debugging')
+    async def echo(ctx, *, args):
+        await ctx.send(args)
+
+    # /assignrole 
+    @bot.command(name = 'assignrole', help = '<member> <role to assign>')
+    async def assign_role(ctx, member: discord.Member, *, role: discord.Role):
+        await member.add_roles(role)
+        await ctx.send('Success!')
+    @assign_role.error #assignrole error checking
+    async def assign_role_error(ctx, error):
+        if isinstance(error, commands.errors.MemberNotFound):
+            await ctx.send('That member does not exist. Typo?')
+        if isinstance(error, commands.errors.RoleNotFound):
+            await ctx.send('That role does not exist. Typo?')
         
-        if user_message[0] == '?':
-            user_message = user_message[1:]     #Ignore '?' Ex: '?help' --> 'help'
-            await send_message(message, user_message, is_private=True)
-        else:
-            await  send_message(message, user_message, is_private=False)
-     
     # Run the    
-    client.run(TOKEN)
+    bot.run(TOKEN)
