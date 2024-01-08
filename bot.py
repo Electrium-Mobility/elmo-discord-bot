@@ -12,7 +12,7 @@ def run_discord_bot():
     intents.members = True
     intents.message_content = True
     description = "Electrium's discord bot"
-    bot = commands.Bot(command_prefix='/', description=description, intents=intents)
+    bot = commands.Bot(command_prefix='&', description=description, intents=intents)
     
     @bot.event
     async def on_ready():
@@ -35,6 +35,8 @@ def run_discord_bot():
             await ctx.send('That member does not exist. Typo?')
         if isinstance(error, commands.errors.RoleNotFound):
             await ctx.send('That role does not exist. Typo?')
+        else:
+            print(error)
         
     # Run the    
     bot.run(TOKEN)
