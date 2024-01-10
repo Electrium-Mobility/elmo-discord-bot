@@ -119,8 +119,10 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-# Environments
+# Environments, env_local and env_global are added for local development
 .env
+.env_local
+.env_server
 .venv
 env/
 venv/
