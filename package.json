@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/rest": "^20.0.2",
     "axios": "^1.6.5",
+    "config": "^3.3.10",
     "discord.js": "^14.14.1"
   },
   "devDependencies": {
