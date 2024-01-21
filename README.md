@@ -4,9 +4,13 @@
 
 ![Image](./resources/Electrium_svg.svg)
 
+<!------------------------------------------------------------------->
+
 # 💪 Contributing To This Project
 
-To become a hard working developer for this project, [join Electrium Mobility](https://electriummobility.com/join-our-team.html){:target="_blank"} and [join our Discord server](https://discord.com/invite/jggFVza4XR){:target="_blank"} to get started ASAP!
+To become a hard working developer for this project, <a href="https://electriummobility.com/join-our-team.html" target="_blank" rel="noopener noreferrer">join Electrium Mobility</a> and <a href="https://discord.com/invite/jggFVza4XR" target="_blank" rel="noopener noreferrer">join our Discord server</a> to get started ASAP!
+
+<!------------------------------------------------------------------->
 
 # 🚀 How To Start This Project
 
@@ -44,6 +48,8 @@ When developing, it is recommended to use `nodemon`:
 nodemon .
 ```
 
+<!------------------------------------------------------------------->
+
 # 🎈 For Beginner Developers
 
 ## 1️⃣ Welcome aboard!
@@ -52,9 +58,9 @@ If you feel daunted by all of this, no worries! This guide will help you get an 
 
 ## 2️⃣ Take/create a ticket from Clickup
 
-Get started by [connecting your Github account to Clickup](https://app.clickup.com/9003010024/v/dc/8c9y1z8-5191/8c9y1z8-19471){:target="_blank"}.
+Get started by <a href="https://app.clickup.com/9003010024/v/dc/8c9y1z8-5191/8c9y1z8-19471" target="_blank" rel="noopener noreferrer">connecting your Github account to Clickup</a> if you haven't done so yet.
 
-Head over to the Clickup Kanban board and see if there is anything that you can tackle. Have an idea that's not on the board? Create it yourself and start working on it! Follow the instructions on Clickup on how to create your own branch from the [Kanban board](https://app.clickup.com/9003010024/v/b/6-901102647742-2){:target="_blank"}.
+Head over to the Clickup Kanban board and see if there is anything that you can tackle. Have an idea that's not on the board? Create it yourself and start working on it! Follow the instructions on Clickup on how to create your own branch from the <a href="https://app.clickup.com/9003010024/v/b/6-901102647742-2" target="_blank" rel="noopener noreferrer">Kanban board</a>.
 
 ## 3️⃣ Implement and program!
 
@@ -68,22 +74,24 @@ Once everything is looking good, it's time to merge it to the `main` branch. It'
 
 How did that feel? Exciting? Exhilarating? There's always more work to be done to this bot, so how about starting again from step 1?
 
+<!------------------------------------------------------------------->
+
 # 🔗 External Resources
 
-## [Clickup](https://app.clickup.com){:target="_blank"}
+## <a href="https://app.clickup.com" target="_blank" rel="noopener noreferrer">Clickup</a>
 
 Clickup stores all the documentations you will need to contribute to this project! It also ahs this project's Kanban board, where it tracks the development progress of this project. Feel free to open a ticket of your own and start working!
 
-## [Discord.js Documentation](https://discord.js.org/docs/packages/discord.js/14.14.1){:target="_blank"}
+## <a href="https://discord.js.org/docs/packages/discord.js/14.14.1" target="_blank" rel="noopener noreferrer">Discord.js Documentation</a>
 
-Discord.js has excellent documentation and resources for begineers to start contributing. They even have their own [Discord server](https://discord.com/invite/djs){:target="_blank"} where you can consult experts for any Discord.js related questions!
+Discord.js has excellent documentation and resources for begineers to start contributing. They even have their own <a href="https://discord.com/invite/djs" target="_blank" rel="noopener noreferrer">Discord server</a> where you can consult experts for any Discord.js related questions!
 
-In addition, they have an [excellent guide](https://discordjs.guide/#before-you-begin){:target="_blank"} that you can follow to understand how the codebase works.
+In addition, they have an <a href="https://discordjs.guide/#before-you-begin" target="_blank" rel="noopener noreferrer">excellent guide</a> that you can follow to understand how the codebase works.
 
-## [Discord.js Voice Documentation](https://discordjs.guide/voice/){:target="_blank"}
+## <a href="https://discordjs.guide/voice/" target="_blank" rel="noopener noreferrer">Discord.js Voice Documentation</a>
 
 Refer to this documentation if you ever find yourself implementing features relating to voice calls.
 
-## [JavaScript getting started](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics){:target="_blank"}
+## <a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics/" target="_blank" rel="noopener noreferrer">JavaScript getting started</a>
 
-New to JavaScript? Mozilla's documentation is a terrific place to head to! Good alternatives include [W3Schools](https://www.w3schools.com/js/){:target="_blank"}, [Codecademy](https://www.codecademy.com/learn/introduction-to-javascript){:target="_blank"}, and [The Modern JavaScript Tutorial](https://javascript.info/){:target="_blank"}.
+New to JavaScript? Mozilla's documentation is a terrific place to head to! Good alternatives include, but not limited to: <a href="https://www.w3schools.com/js/" target="_blank" rel="noopener noreferrer">W3Schools</a>, <a href="" target="_blank" rel="noopener noreferrer">Codecademy</a>, and <a href="https://www.codecademy.com/learn/introduction-to-javascript" target="_blank" rel="noopener noreferrer">The Modern JavaScript Tutorial</a>.
