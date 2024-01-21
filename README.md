@@ -2,11 +2,11 @@
     ⚡ Electrium Mobility Discord Bot ⚡
 </h1>
 
-![Alt text](./resources/Electrium_svg.svg)
+![Image](./resources/Electrium_svg.svg)
 
 # 💪 Contributing To This Project
 
-To become a hard working developer for this project, join our Electrium Mobility [here]() and join our clickup [here]() to get started ASAP!
+To become a hard working developer for this project, join our Electrium Mobility [here](https://electriummobility.com/join-our-team.html) and join our clickup [here](https://discord.com/invite/jggFVza4XR) to get started ASAP!
 
 # 🚀 How To Start This Project
 
@@ -38,7 +38,7 @@ INSERT TOKENS HERE
 node .
 ```
 
-When developing, it is recommended to use `nodemon`
+When developing, it is recommended to use `nodemon`:
 
 ```
 nodemon .
@@ -68,18 +68,20 @@ How did that feel? Exciting? Exhilarating? There's always more work to be done t
 
 # 🔗 External Resources
 
-## [Clickup]()
+## [Clickup](app.clickup.com)
 
 Clickup stores all the documentations you will need to contribute to this project! It also ahs this project's Kanban board, where it tracks the development progress of this project. Feel free to open a ticket of your own and start working!
 
-## [Discord.js Documentation]()
+## [Discord.js Documentation](https://discord.js.org/docs/packages/discord.js/14.14.1)
 
 Discord.js has excellent documentation and resources for begineers to start contributing. They even have their own [Discord server]() where you can consult experts for any Discord.js related questions!
 
-## [Discord.js Voice Documentation]()
+In addition, they have an [excellent guide](https://discordjs.guide/#before-you-begin) that you can follow to understand how the codebase works.
+
+## [Discord.js Voice Documentation](https://discordjs.guide/voice/)
 
 Refer to this documentation if you ever find yourself implementing features relating to voice calls.
 
 ## [JavaScript getting started](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics)
 
-New to JavaScript? Mozilla's documentation is a terrific place to head to! Good alternatives include [W3Schools](), [Codecademy](), and [The Modern JavaScript Tutorial]().
+New to JavaScript? Mozilla's documentation is a terrific place to head to! Good alternatives include [W3Schools](https://www.w3schools.com/js/), [Codecademy](https://www.codecademy.com/learn/introduction-to-javascript), and [The Modern JavaScript Tutorial](https://javascript.info/).
