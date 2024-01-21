@@ -1,4 +1,4 @@
-<h1 style="text-align: center;" markdown="1">
+<h1 align="center">
     ⚡ Electrium Mobility Discord Bot ⚡
 </h1>
 
