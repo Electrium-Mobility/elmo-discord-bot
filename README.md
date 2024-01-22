@@ -9,10 +9,12 @@ npm install discord.js
 npm install @octokit/rest
 npm install axios
 
+setting up config.json
+
+
 After adding/editing new commands, must run : 
 node deploy-commands.js
 then 
 node .
 
-setting up config.json
 
