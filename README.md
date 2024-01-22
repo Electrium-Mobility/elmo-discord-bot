@@ -4,10 +4,12 @@ Electrium Mobility Discord Bot Developing...
 # Project Setup
 ![Alt text](image.png)
 
-modules to install:
-npm install discord.js
-npm install @octokit/rest
-npm install axios
+modules:
+discord.js
+@octokit/rest
+axios
+
+run npm install in the app directory to install dependencies
 
 setting up config.json
 
