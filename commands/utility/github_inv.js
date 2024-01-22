@@ -1,12 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { Octokit } = require("@octokit/rest");
-const { githubToken } = require('/Users/jelle/VScode/discord-bot/config.json');
-
-const octokit = new Octokit({
-	auth: githubToken
-});
   
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('git_inv')
@@ -15,8 +9,10 @@ module.exports = {
 			option
 				.setName('email')
 				.setDescription('members email')),
-	async execute(interaction) {
-
+	async execute(interaction, token) {
+		const octokit = new Octokit({
+			auth: token
+		});
 		const email = interaction.options.getString('email');
 
 		await octokit.request('POST /orgs/{org}/invitations', {

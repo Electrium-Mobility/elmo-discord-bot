@@ -14,7 +14,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('joke')
 		.setDescription('pulls random dad jokes.'),
-	async execute(interaction) {
+	async execute({interaction}) {
     try {
       const response = await axios.request(options);
       console.log(response.data);
