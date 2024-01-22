@@ -1,0 +1,6 @@
+{
+	"token": "DISCORD-TOKEN",
+	"clientId": "BOT-APPLICATION-ID",
+	"guildId": "SERVER-ID",
+	"githubToken" : "GITHUB-ACCESS-TOKEN"
+}
