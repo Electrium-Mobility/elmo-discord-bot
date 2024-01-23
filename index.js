@@ -4,7 +4,8 @@ const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 const axios = require('axios');
-
+const express = require('express');
+const cors = require('cors');
 // Create a new client instance
 const client = new Client({ intents: 
 	[GatewayIntentBits.Guilds,
@@ -70,7 +71,19 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-
-
 // Log in to Discord with your client's token
 client.login(token);
+
+const app = express();
+const port = 3000;
+
+app.use(cors());
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+
+
