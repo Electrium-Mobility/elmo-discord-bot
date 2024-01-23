@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const { spreadsheetId } = require('../../config.json');
 const { google } = require('googleapis');
 
+
 // Google Sheets Authorisation
 const auth = new google.auth.GoogleAuth({
 	keyFile: "./credentials.json",
@@ -9,6 +10,7 @@ const auth = new google.auth.GoogleAuth({
 })
 const sheetClient = auth.getClient();
 const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
+
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -40,7 +42,7 @@ module.exports = {
       }
       await interaction.reply(`Full Name: ${fullName}\nEmail: ${email}\nRole: ${role}\nTeam: ${team}`);
     } else {
-      await interaction.reply(`I could not locate this user in the Google Sheet.`)
+      await interaction.reply(`I couldn't find this user in the W24 member list :(`)
     }
 	},
 };
