@@ -16,7 +16,7 @@ const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('get_user_info')
+		.setName('getuserinfo')
     .setDescription('Get user info from the Google Sheet!')
 		.addUserOption(option =>
 			option
