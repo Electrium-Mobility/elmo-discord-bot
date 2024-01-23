@@ -6,7 +6,11 @@ const { token } = require('./config.json');
 const axios = require('axios');
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: 
+	[GatewayIntentBits.Guilds,
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.MessageContent,
+	GatewayIntentBits.GuildMembers,] });
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
@@ -14,6 +18,13 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
+
+client.on("messageCreate", msg => {
+	console.log(msg.content);
+	if (msg.content === "ping") {
+		msg.reply({ content: 'pong' })
+	}
+})
 
 client.commands = new Collection();
 //command handling, loading all command files and saving command paths in commandFiles 
