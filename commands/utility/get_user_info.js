@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 /*  ----------------------
 Google Sheets Setup
 -------------------------- */
@@ -22,8 +22,8 @@ module.exports = {
 			option
 				.setName('user')
 				.setDescription('The user we wish to get info on')
-        .setRequired(true)
-    ),
+        .setRequired(true))
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
     const user = interaction.options.getUser('user');
     const username = await user.username;
