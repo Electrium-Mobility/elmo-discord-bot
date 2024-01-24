@@ -6,6 +6,7 @@ const { token } = require('./config.json');
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 // Create a new client instance
 const client = new Client({ intents: 
 	[GatewayIntentBits.Guilds,
@@ -76,11 +77,38 @@ client.login(token);
 
 const app = express();
 const port = 3000;
-
+app.use(bodyParser.json());
 app.use(cors());
-app.get('/api/github_changes', (req, res) => {
+app.get('/', (req, res) => {
   res.send({msg:"server is running"});
 });
+
+app.post('/', (req, res)=>{
+//	console.log(req.body);
+    const payload = req.body;
+	console.log(payload);
+	console.log(payload.pusher);
+    if(!payload.pusher){
+	    res.status(200);
+	    return;
+	}
+		
+    const pusher = payload.pusher.name;
+    const repoName = payload.repository.name;
+    const commitMsg = payload.head_commit.message;
+    const commitUrl = payload.head_commit.url;
+
+    const discordMessage = `${pusher} has pushed to ${repoName} with commit: ${commitMsg}, ${commitUrl}`;
+
+    const channel = client.channels.cache.get("1199133159439224895");
+    if (channel) {
+        channel.send(discordMessage);
+    } else {
+        console.log('Channel not found');
+    }	
+
+	res.status(200).send({msg:"webhook received"})
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
