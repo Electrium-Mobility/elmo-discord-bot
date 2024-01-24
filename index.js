@@ -1,18 +1,20 @@
 // Require the necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+const { Client, Collection, Events, GatewayIntentBits} = require('discord.js');
+const { token, channelId } = require('./config.json');
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 // Create a new client instance
-const client = new Client({ intents: 
-	[GatewayIntentBits.Guilds,
-	GatewayIntentBits.GuildMessages,
-	GatewayIntentBits.MessageContent,
-	GatewayIntentBits.GuildMembers,] });
+const client = new Client({
+	intents:
+		[GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,]
+});
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
@@ -79,39 +81,36 @@ const app = express();
 const port = 3000;
 app.use(bodyParser.json());
 app.use(cors());
-app.get('/', (req, res) => {
-  res.send({msg:"server is running"});
+app.get('/', (req, res) => { //used for testing if the server is running
+	res.send({ msg: "server is running" });
 });
 
-app.post('/', (req, res)=>{
-//	console.log(req.body);
-    const payload = req.body;
-	console.log(payload);
-	console.log(payload.pusher);
-    if(!payload.pusher){
-	    res.status(200);
-	    return;
+app.post('/', (req, res) => {
+	const payload = req.body;
+	if (!payload.pusher) { //Only when a ciommit is pushed
+		res.status(200);
+		return;
 	}
-		
-    const pusher = payload.pusher.name;
-    const repoName = payload.repository.name;
-    const commitMsg = payload.head_commit.message;
-    const commitUrl = payload.head_commit.url;
 
-    const discordMessage = `${pusher} has pushed to ${repoName} with commit: ${commitMsg}, ${commitUrl}`;
+	const pusher = payload.pusher.name;
+	const repoName = payload.repository.name;
+	const commitMsg = payload.head_commit.message;
+	const commitUrl = payload.head_commit.url;
 
-    const channel = client.channels.cache.get("1199133159439224895");
-    if (channel) {
-        channel.send(discordMessage);
-    } else {
-        console.log('Channel not found');
-    }	
+	const discordMessage = `${pusher} has pushed to ${repoName} with commit: ${commitMsg}, ${commitUrl}`;
 
-	res.status(200).send({msg:"webhook received"})
+	const channel = client.channels.cache.get(channelId);
+	if (channel) {
+		channel.send(discordMessage);
+	} else {
+		console.log('Channel not found');
+	}
+
+	res.status(200).send({ msg: "webhook received" })
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+	console.log(`Example app listening at http://localhost:${port}`);
 });
 
 
