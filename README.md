@@ -21,7 +21,13 @@ To become a hard working developer for this project, [join Electrium Mobility](h
 git clone https://github.com/Electrium-Mobility/discord-bot.git
 ```
 
-2. Install npm modules
+2. Install node and npm modules
+
+ensure you are using Node v16.11.0 or higher
+for macs : 
+```
+brew install node
+```
 
 ```
 npm i
