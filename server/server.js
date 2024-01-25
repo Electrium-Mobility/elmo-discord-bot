@@ -1,9 +1,12 @@
+const { Client, Collection, Events, GatewayIntentBits} = require('discord.js');
+const { token, channelId } = require('../config.json');
 const express = require('express');
 const bodyParser = require('body-parser');
-const {channelId} = require('../config.json');
 const cors = require('cors');
-const client =require('../client.config');
 const app = express();
+
+const client = new Client({intents:[GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]});
+client.login(token);
 
 const port = 3000;
 
@@ -14,10 +17,11 @@ app.get('/', (req, res) => { //used for testing if the server is running
 	res.send({ msg: "server is running" });
 });
 
+//TO DO: put this in another file, and add more feature instead of only listen for pushes.
 app.post('/api/github-webhook', (req, res) => {
 	const payload = req.body;
 	if (!payload.pusher) { //Only triggers when a cimmit is pushed
-		res.status(200); //TO DO: 
+		res.status(200); 
 		return;
 	}
 
