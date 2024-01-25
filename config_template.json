@@ -1,4 +1,5 @@
 {
+    "spreadsheetId": "SPREADSHEET-ID",
     "token": "DISCORD-TOKEN",
     "clientId": "CLIENT-ID",
     "guildId": "SERVER-ID",
