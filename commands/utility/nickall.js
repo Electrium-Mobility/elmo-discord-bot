@@ -49,12 +49,16 @@ module.exports = {
 			let fullname = row[1];
 			let discord_username = row[4];
 
-			// Quick check
+			// Quick checks
 			if (
-				!watiam.length || !fullname.length || !discord_username.length
+				// Check for undefined
+				watiam.length || fullname.length || discord_username.length ||
+
+				// Check for empty values according to what Google Sheet does
+				watiam === " " || fullname === " " || discord_username === " "
 			) return;
 
-			if (row[0] != " " && !sheetmembers.has(discord_username)) {
+			if (row[0] !== " " && !sheetmembers.has(discord_username)) {
 				sheetmembers.set(watiam, {name: fullname, username: discord_username, id: discordmembers.get(discord_username)})
 			}
 		});
