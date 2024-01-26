@@ -16,31 +16,45 @@ app.use(cors());
 app.get('/', (req, res) => { //used for testing if the server is running
 	res.send({ msg: "server is running" });
 });
-
-//TO DO: put this in another file, and add more feature instead of only listen for pushes.
+//TODO: put this in another file if more endpoints are required.
 app.post('/api/github-webhook', (req, res) => {
-	const payload = req.body;
-	if (!payload.pusher) { //Only triggers when a cimmit is pushed
-		res.status(200); 
-		return;
-	}
+    const payload = req.body;
+    let discordMessage = '';
 
-	const pusher = payload.pusher.name;
-	const repoName = payload.repository.name;
-	const commitMsg = payload.head_commit.message;
-	const commitUrl = payload.head_commit.url;
+    // Handle push event
+    if (payload.pusher) {
+        const pusher = payload.pusher.name;
+        const repoName = payload.repository.name;
+        const commitMsg = payload.head_commit.message;
+        const commitUrl = payload.head_commit.url;
 
-	const discordMessage = `${pusher} has pushed to ${repoName} with commit: ${commitMsg}, ${commitUrl}`;
+        discordMessage = `${pusher} has pushed to ${repoName} with commit: ${commitMsg}, ${commitUrl}`;
+    }
+    // Handle pull request event
+    else if (payload.pull_request && payload.action === 'opened') {
+        const pullRequestUser = payload.pull_request.user.login;
+        const repoName = payload.repository.name;
+        const pullRequestTitle = payload.pull_request.title;
+        const pullRequestUrl = payload.pull_request.html_url;
 
-	const channel = client.channels.cache.get(channelId);
-	if (channel) {
-		channel.send(discordMessage);
-	} else {
-		console.log('Channel not found');
-	}
+        discordMessage = `${pullRequestUser} has submitted a pull request in ${repoName}: ${pullRequestTitle}, ${pullRequestUrl}`;
+    }
 
-	res.status(200).send({ msg: "webhook received" })
-})
+    // If an event is recognized and a message is formed
+    if (discordMessage) {
+        const channel = client.channels.cache.get(channelId);
+        if (channel) {
+            channel.send(discordMessage);
+        } else {
+            console.log('Channel not found');
+        }
+    } else {
+        console.log('Unrecognized event type');
+    }
+
+    res.status(200).send({ msg: "Webhook received" });
+});
+
 
 app.listen(port, () => {
 	console.log(`Sever is listening at Port ${port}`);
