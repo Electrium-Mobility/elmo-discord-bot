@@ -43,7 +43,7 @@ for (const folder of commandFolders) {
 //event listener
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
-	console.log(interaction);
+	// console.log(interaction);
 
 	const command = interaction.client.commands.get(interaction.commandName);
 
@@ -66,4 +66,3 @@ client.on(Events.InteractionCreate, async interaction => {
 
 // Log in to Discord with your client's token
 client.login(token);
-
