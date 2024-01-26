@@ -17,7 +17,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("nickall")
     	.setDescription("Sets the nickname of all users according to the Electrium spreadsheet data"),
-    	// .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+    	.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   	async execute(interaction) {
 		const discordmembers = new Map();
 		const sheetmembers = new Map();
