@@ -19,37 +19,55 @@ module.exports = {
     	.setDescription("Sets the nickname of all users according to the Electrium spreadsheet data"),
     	// .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   	async execute(interaction) {
-		const members = await interaction.guild.members.list({limit: 1000});
-		console.log(members);
-		return;
-		console.log(membersList);
-		return;
-		membersList.members.forEach(member => {
-			discordid = member.user.username
-		})
+		const discordmembers = new Map();
+		const sheetmembers = new Map();
 
-		const user = interaction.options.getUser("user");
-		const username = await user.username;
+		// Use this until we can convert Discord username to snowflake
+		// All of this crap just to get the Discord ID
+		// I hate this approach so please find a way to not do this
+		let discordmembers_get = (await interaction.guild.members.list({limit: 1000}));
+		for (let x of discordmembers_get) {
+			let username = x[1].user.username;
+			let id = x[1].user.id;
+			discordmembers.set(username, id);
+		}
 
-		// Get Google sheet columns A to G
+		// Grab data from Google Sheets
 		const rows = await googleSheets.spreadsheets.values.get({
 			auth: auth,
 			spreadsheetId: spreadsheetId,
-			range: "A:G"
+			range: "A:G" // Do not modify this range
 		});
-
-		// Find the provided user in column E
-		const data = rows.data.values.find(row => row[4] === username);
-		// If user can be found
-		if (data) {
-			const fullName = data[1];
-			const email = data[3];
-			const role = data[5];
-			let team = data[6];
-			if (!team) {
-				team = "N/A";
+		
+		rows.data.values.forEach((row, idx) => {
+			// Skip headers
+			if (idx === 0) return;
+			
+			// WatIAm => {FullName, DiscordIGN, Id (Pain in the fucking ass to obtain)}
+			//                                  ^ Can't wait for someone to find an easier way for this
+			let watiam = row[2];
+			let fullname = row[1];
+			let discord_username = row[4]
+			if (row[0] != " " && !sheetmembers.has(discord_username)) {
+				sheetmembers.set(watiam, {name: fullname, username: discord_username, id: discordmembers.get(discord_username)})
 			}
-			await interaction.reply(`Full Name: ${fullName}\nEmail: ${email}\nRole: ${role}\nTeam: ${team}`);
+		});
+		
+		// Set nicknames
+		for (const [key, val] of sheetmembers.entries()) {
+			if (val.id) {
+				if (val.id !== interaction.guild.ownerId) {
+					// console.log(`Setting Discord username ${key} with ID ${val.id} to ${val.name.substring(0, val.name.indexOf(" "))}`);
+					interaction.guild.members.fetch(val.id)
+						.then((res) => {
+								res.setNickname(val.name.substring(0, val.name.indexOf(" ")))
+							}
+						)
+				}
+			}
 		}
+
+		interaction.reply({ content: "Success", ephemeral: true });
+		return;
 	},
 };
