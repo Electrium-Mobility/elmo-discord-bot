@@ -6,6 +6,7 @@
 
 <!------------------------------------------------------------------->
 
+
 # 💪 Contributing To This Project
 
 To become a hard working developer for this project, [join Electrium Mobility](https://electriummobility.com/join-our-team.html) and [join our Discord server](https://discord.com/invite/jggFVza4XR) to get started ASAP!

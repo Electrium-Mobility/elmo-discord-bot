@@ -1,11 +1,17 @@
 // Require the necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
-
+const { Client, Collection, Events, GatewayIntentBits} = require('discord.js');
+const { token, channelId } = require('./config.json');
+const axios = require('axios');
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents:
+		[GatewayIntentBits.Guilds]
+});
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
@@ -58,7 +64,6 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-
-
 // Log in to Discord with your client's token
 client.login(token);
+
