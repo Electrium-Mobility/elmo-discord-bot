@@ -47,7 +47,13 @@ module.exports = {
 			//                                  ^ Can't wait for someone to find an easier way for this
 			let watiam = row[2];
 			let fullname = row[1];
-			let discord_username = row[4]
+			let discord_username = row[4];
+
+			// Quick check
+			if (
+				!watiam.length || !fullname.length || !discord_username.length
+			) return;
+
 			if (row[0] != " " && !sheetmembers.has(discord_username)) {
 				sheetmembers.set(watiam, {name: fullname, username: discord_username, id: discordmembers.get(discord_username)})
 			}
