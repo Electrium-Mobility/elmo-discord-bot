@@ -5,5 +5,5 @@
     "guildId": "SERVER-ID",
     "githubToken" : "GITHUB-TOKEN",
     "channelId":"CHANNEL-ID",
-    "teamId" : "TEAM-ID"
+    "clickupTeamId" : "TEAM-ID"
 }
