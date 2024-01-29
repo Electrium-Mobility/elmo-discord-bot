@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
-const { clickupToken, teamId } = require('../../config.json');
+const { clickupToken, clickupTeamId } = require('../../config.json');
 
 
 module.exports = {
@@ -72,7 +72,7 @@ module.exports = {
 };
 
 async function findSpaceIdByName(spaceName) {
-    const url = `https://api.clickup.com/api/v2/team/${teamId}/space`;
+    const url = `https://api.clickup.com/api/v2/team/${clickupTeamId}/space`;
     const config = {
         headers: {
             'Authorization': clickupToken
