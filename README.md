@@ -33,14 +33,10 @@ brew install node
 npm i
 ```
 
-3. Obtain .env tokens
+1. Obtain config tokens
 
 ```
-PLACEHOLDER INSTRUCTIONS
-
-Currently, the following tokens are being used:
-
-INSERT TOKENS HERE
+Go into Discord, find the pinned messages for config.json and credentials.json. Download and put into your directory.
 ```
 
 4. Start the project
