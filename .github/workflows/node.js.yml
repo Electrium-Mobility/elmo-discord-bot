@@ -29,6 +29,11 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     # - run: npm test
+    - name: Decode credentials.json
+      run: |
+        echo "${{ secrets.CREDENTIALS_JSON_BASE64 }}" | base64 -d > credentials.json
+      env:
+        CREDENTIALS_JSON_BASE64: ${{ secrets.CREDENTIALS_JSON_BASE64 }}
     - name: Build Discord Bot
       env:
         SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
