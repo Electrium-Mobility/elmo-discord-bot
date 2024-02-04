@@ -1,11 +1,11 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { Octokit } = require("@octokit/rest");
-const { githubToken } = require('../../config.json');
-
+//const { githubToken } = require('../../config.json');
+const githubToken = process.env.GITHUBTOKEN;
 const octokit = new Octokit({
 	auth: githubToken
 });
-  
+
 
 module.exports = {
 	data: new SlashCommandBuilder()

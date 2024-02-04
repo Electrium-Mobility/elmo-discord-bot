@@ -2,7 +2,8 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 /*  ----------------------
 Google Sheets Setup
 -------------------------- */
-const { spreadsheetId } = require('../../config.json');
+//const { spreadsheetId } = require('../../config.json');
+const spreadsheetId = process.env.SPREADSHEET_ID;
 const { google } = require('googleapis');
 
 const auth = new google.auth.GoogleAuth({
