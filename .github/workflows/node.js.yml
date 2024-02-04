@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    
   pull_request:
-    branches: [ "main" ]
+    
 
 jobs:
   build:
@@ -29,4 +29,14 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     # - run: npm test
-    - run: npm start
+    - name: Build Discord Bot
+      env:
+        SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+        TOKEN: ${{ secrets.TOKEN }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        GUILD_ID: ${{ secrets.GUILD_ID }}
+        GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
+        CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+        CLICKUP_TOKEN: ${{ secrets.CLICKUP_TOKEN }}
+        CLICKUP_TEAM_ID: ${{ secrets.CLICKUP_TEAM_ID }}
+      run: npm start
