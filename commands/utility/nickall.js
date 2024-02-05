@@ -67,12 +67,11 @@ module.exports = {
 		for (const [key, val] of sheetmembers.entries()) {
 			if (val.id) {
 				if (val.id !== interaction.guild.ownerId) {
-					// console.log(`Setting Discord username ${key} with ID ${val.id} to ${val.name.substring(0, val.name.indexOf(" "))}`);
 					interaction.guild.members.fetch(val.id)
-						.then((res) => {
-								res.setNickname(val.name.substring(0, val.name.indexOf(" ")))
-							}
-						)
+					.then((res) => {
+						// Set a nickname if the user has one or not
+						if (!res.nickname) res.setNickname(val.name.substring(0, val.name.indexOf(" ")))
+					})
 				}
 			}
 		}

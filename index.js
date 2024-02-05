@@ -49,9 +49,8 @@ for (const folder of commandFolders) {
 //event listener
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
-	// console.log(interaction);
-
-		const command = interaction.client.commands.get(interaction.commandName);
+	
+	const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
 			console.error(`No command matching ${interaction.commandName} was found.`);
