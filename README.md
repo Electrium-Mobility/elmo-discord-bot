@@ -39,11 +39,14 @@ npm i
 Go into Discord, find the pinned messages for config.json and credentials.json. Download and put into your directory.
 ```
 
-4. Run this command to deploy commands:
+4. Modify Github Repo Secrets
 ```
-node deploy-commands.js
+Go to Settings -> Secrets and variables - Actions and modify the secrets if you need to.
 ```
-5. Run bot with:
+```
+Then wait for the GitHub action to run
+```
+<!--5. Run bot with:
 
 ```
 node .
@@ -53,7 +56,7 @@ When developing, it is recommended to use `nodemon`:
 
 ```
 nodemon .
-```
+``` -->
 
 <!------------------------------------------------------------------->
 
