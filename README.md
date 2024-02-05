@@ -39,14 +39,11 @@ npm i
 Go into Discord, find the pinned messages for config.json and credentials.json. Download and put into your directory.
 ```
 
-4. Modify Github Repo Secrets
+4. Run this command to deploy commands:
 ```
-Go to Settings -> Secrets and variables - Actions and modify the secrets if you need to.
+node deploy-commands.js
 ```
-```
-Then wait for the GitHub action to run
-```
-<!--5. Run bot with:
+5. Run bot with:
 
 ```
 node .
@@ -56,7 +53,37 @@ When developing, it is recommended to use `nodemon`:
 
 ```
 nodemon .
-``` -->
+```
+
+<!------------------------------------------------------------------->
+# 🏗️ Modifying GitHub Secrets (CI/CD)
+Note: CI/CD pipeline has not been set up yet.
+
+### 1. ⚙️ Modify Secrets in config.json:
+```
+Go to GitHub Repo -> Settings -> Secrets and variables -> Actions -> Modify the repo secret
+```
+
+### 2. ⚙️ Modify Secrets in credentials.json:
+   
+2.1 🔒 Encode the credentials.json into base64 encoding:
+   
+Mac: Type the following in the terminal
+
+```
+base64 -i <in-file> -o <out-file>
+```
+
+Windows:
+```
+certutil -encode <in-file> tmp.b64 && findstr /v /c:- tmp.b64 > <out-file>
+```
+
+2.2 Head to GitHub
+```
+Go to GitHub Repo -> Settings -> Secrets and variables -> Actions -> Modify the repo secret (CREDENTIALS_JSON_BASE64)
+```
+After that, GitHub Actions will run if any changes on the main branch are detected!
 
 <!------------------------------------------------------------------->
 
