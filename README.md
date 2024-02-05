@@ -55,7 +55,7 @@ When developing, it is recommended to use `nodemon`:
 nodemon .
 ```
 
-##Other
+## Other
 
 - GitHub Token: to run commands like ``github_inv``, you need to have a administration account for organization "Electrium-Mobility". From there, follow the [link](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) to generate a personal access token and store it in the config.json file located in the root directory of your project.
 
