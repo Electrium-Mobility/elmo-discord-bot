@@ -2,7 +2,6 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 /*  ----------------------
 Google Sheets Setup
 -------------------------- */
-const { spreadsheetId } = require('../../config.json');
 const { google } = require('googleapis');
 
 const auth = new google.auth.GoogleAuth({
@@ -31,7 +30,7 @@ module.exports = {
     // get Google sheet columns A to G
     const rows = await googleSheets.spreadsheets.values.get({
 			auth: auth,
-			spreadsheetId: spreadsheetId,
+			spreadsheetId: process.env.SPREADSHEET_ID,
 			range: "A:G"
     });
 

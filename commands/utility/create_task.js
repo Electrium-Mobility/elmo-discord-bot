@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
-const { clickupToken } = require('../../config.json');
+const { clickupToken } = require('../../config.json'); // TODO add token to VAULT
 const { getLocalTaskLists } = require('../../helperFunctions/retrieve_task_lists');
 
 

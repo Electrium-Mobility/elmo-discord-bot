@@ -2,7 +2,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits} = require('discord.js');
-const { token, channelId } = require('./config.json');
+const { githubToken } = require('./config.json');
+
+require('dotenv').config();
+
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
@@ -93,5 +96,4 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 // Log in to Discord with your client's token
-client.login(token);
-
+client.login(process.env.TOKEN);

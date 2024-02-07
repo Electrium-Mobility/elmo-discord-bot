@@ -1,9 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { Octokit } = require("@octokit/rest");
-const { githubToken } = require('../../config.json');
 
 const octokit = new Octokit({
-	auth: githubToken
+	auth: process.env.GITHUB_TOKEN
 });
   
 
@@ -22,7 +21,7 @@ module.exports = {
 
 		try{
 			await octokit.request('POST /orgs/{org}/invitations', {
-				org: 'Electrium-Mobility',
+				org: 'testingforbot',
 				email: email,
 				role: 'direct_member',
 				/*team_ids: [
@@ -35,7 +34,7 @@ module.exports = {
 			});
 			await interaction.reply("Invitation Sent!");
 		}catch(error){
-			await interaction.reply("Invitation failed, please double check the email and try again...")
+			await interaction.reply({content: "Invitation failed, please double check the email and try again...", ephemeral : true});
 		}
 
 	},
