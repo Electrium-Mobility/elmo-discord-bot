@@ -7,11 +7,14 @@ const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
+const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/retrieve_task_lists');
 // Create a new client instance
 const client = new Client({
 	intents:
 		[GatewayIntentBits.Guilds]
 });
+
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
@@ -19,6 +22,9 @@ const client = new Client({
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
+
+// stores a copy of task lists locally
+updateLocalTaskLists();
 
 client.commands = new Collection();
 //command handling, loading all command files and saving command paths in commandFiles 
@@ -46,19 +52,41 @@ client.on(Events.InteractionCreate, async interaction => {
 	
 	const command = interaction.client.commands.get(interaction.commandName);
 
-	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
-		return;
-	}
+		if (!command) {
+			console.error(`No command matching ${interaction.commandName} was found.`);
+			return;
+		}
 
-	try {
-		await command.execute(interaction);
-	} catch (error) {
-		console.error(error);
-		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-		} else {
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		try {
+			await command.execute(interaction);
+		} catch (error) {
+			console.error(error);
+			if (interaction.replied || interaction.deferred) {
+				await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+			} else {
+				await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+			}
+		}
+	}
+	else if (interaction.isAutocomplete() && interaction.commandName === 'createtask') {
+		const focusedOption = interaction.options.getFocused(true);
+	
+		if (focusedOption.name === 'tasklistname') {
+			const localTaskLists = await getLocalTaskLists()
+			let filteredTaskLists = localTaskLists.filter(tasklist => 
+				tasklist.name.toLowerCase().includes(focusedOption.value.toLowerCase())
+			);
+
+			// sort tasklist options alphabetically
+			filteredTaskLists = filteredTaskLists.sort((a, b) => {
+				return a.name.localeCompare(b.name);
+			});
+	
+			await interaction.respond(
+				// max autocomplete options supported by discord is 25
+				filteredTaskLists.slice(0, 25).map(tasklist => ({ name: tasklist.name, value: tasklist.name }))
+			);
+			return;
 		}
 	}
 });

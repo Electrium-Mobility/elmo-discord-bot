@@ -3,5 +3,7 @@
     "token": "DISCORD-TOKEN",
     "clientId": "CLIENT-ID",
     "guildId": "SERVER-ID",
-    "githubToken" : "GITHUB-TOKEN"
+    "githubToken" : "GITHUB-TOKEN",
+    "channelId":"CHANNEL-ID",
+    "clickupTeamId" : "TEAM-ID"
 }
