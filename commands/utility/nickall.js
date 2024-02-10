@@ -19,12 +19,16 @@ module.exports = {
     	.setDescription("Sets the nickname of all users according to the Electrium spreadsheet data")
     	.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   	async execute(interaction) {
+		// 2024.02.09 Carl Wang
+		// TODO: Find a way to obtain a user snowflake (ID) using a GuildMember fetch 
+		// functionality, rather than obtaining the full list of Discord members in the
+		// server because once the server exceeds 1000 members, this will NOT work			
 		const discordmembers = new Map();
 		const sheetmembers = new Map();
 
 		// Use this until we can convert Discord username to snowflake
 		// All of this crap just to get the Discord ID
-		// I hate this approach so please find a way to not do this
+		// I hate this approach so please find a way to not do this to 
 		let discordmembers_get = (await interaction.guild.members.list({limit: 1000}));
 		for (let x of discordmembers_get) {
 			let username = x[1].user.username;
@@ -36,7 +40,7 @@ module.exports = {
 		const rows = await googleSheets.spreadsheets.values.get({
 			auth: auth,
 			spreadsheetId: spreadsheetId,
-			range: "A:G" // Do not modify this range
+			range: "A:G" // Do NOT modify this range unless you know what you're doing
 		});
 		
 		rows.data.values.forEach((row, idx) => {
@@ -52,14 +56,15 @@ module.exports = {
 			// Quick checks
 			if (
 				// Check for undefined
-				watiam.length || fullname.length || discord_username.length ||
+				!watiam || !fullname || !discord_username ||
 
 				// Check for empty values according to what Google Sheet does
 				watiam === " " || fullname === " " || discord_username === " "
 			) return;
 
+			// Add to a list of members to have their Discord usernames changed to what is on Google Sheets
 			if (row[0] !== " " && !sheetmembers.has(discord_username)) {
-				sheetmembers.set(watiam, {name: fullname, username: discord_username, id: discordmembers.get(discord_username)})
+				sheetmembers.set(watiam, {name: fullname, username: discord_username, id: discordmembers.get(discord_username)});
 			}
 		});
 		
