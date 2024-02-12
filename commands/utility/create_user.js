@@ -20,9 +20,12 @@ const prompts = [
   'What\'s your uWaterloo email? (example s36chiu@uwaterloo.ca)',
   'What\'s your role? (example Electrical, Firmware, Mechanical)' ,
   'What project are you working on? (example Bakfiets, Scooter, Vroom)',
+  'What program are you in? (example Computer Engineering, Mechantronics Engineering)',
+  'What year are you in? (example 1B, 2B, 3A)',
+  'Are you Remote or In-person? (type Remote or In-person)',
   'You have been successfully added as an Electrium Member! Welcome to the team :)'
 ]
-var answers = ["", "", "", ""]
+var answers = ["", "", "", "", "", "", ""]
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -96,7 +99,7 @@ module.exports = {
         }, 1000);
       }
       console.log(answers)
-      // sheetClient.appendRow()
+
       googleSheets.spreadsheets.values.append({
         auth: auth,
         spreadsheetId: spreadsheetId,
@@ -104,7 +107,7 @@ module.exports = {
         valueInputOption: "USER_ENTERED",
         resource: {
           majorDimension: "ROWS",
-          values: [[lastRow, answers[0], "", answers[1], username, answers[2], answers[3]]]
+          values: [[lastRow, answers[0], "", answers[1], username, answers[2], answers[3], "", answers[4], answers[5], answers[6]]]
         } 
       })
       await user.send("Success! You've been added as an Electrium Member. Ask @Sherwin for any questions you have!")
