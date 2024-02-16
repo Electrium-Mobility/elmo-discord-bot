@@ -7,7 +7,7 @@ const { clickup_password } = require('../../credentials.json');
 const options = new chrome.Options();
 options.addArguments('--ignore-certificate-errors');
 options.addArguments('--ignore-ssl-errors');
-// options.addArguments('--headless');
+options.addArguments('--headless');
 options.setAcceptInsecureCerts();
 
 module.exports = {
