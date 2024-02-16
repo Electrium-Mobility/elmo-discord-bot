@@ -110,8 +110,8 @@ module.exports = {
           values: [[lastRow, answers[0], "", answers[1], username, answers[2], answers[3], "", answers[4], answers[5], answers[6]]]
         } 
       })
-      await user.send("Success! You've been added as an Electrium Member. Ask @Sherwin for any questions you have!")
       await thread.delete()
+      await user.send("Success! You've been added as an Electrium Member. Ask Sherwin for any questions you have!")
 
     }
 	},
