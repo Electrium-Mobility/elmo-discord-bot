@@ -11,7 +11,7 @@ const auth = new google.auth.GoogleAuth({
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive"],
 })
-// const service = google.sheets({ version: "v4", auth});
+
 const driveService = google.drive({ version: 'v3', auth }); 
 /* ------------------- */
 
@@ -37,15 +37,16 @@ module.exports = {
             },
         });
 
-        // Now, share the copied spreadsheet with your Gmail account
+        // Share the copieds spreadsheet with your gmail account
         await driveService.permissions.create({
             fileId: copiedSheet.data.id,
             requestBody: {
                 type: 'user',
-                role: 'writer', // Choose 'writer' for edit access or 'reader' for view-only access
-                emailAddress: 'georgeli293@gmail.com' // Your Gmail account
+                role: 'writer', 
+                emailAddress: 'georgeli293@gmail.com' // Gmail Account
             },
         });
+        
         // Reply with the spreadsheet link
         const spreadsheetUrl = `https://docs.google.com/spreadsheets/d/${copiedSheet.data.id}/edit`;
         await interaction.editReply(`Workorder: ${title} has been successfully created. Access it here: ${spreadsheetUrl}`);
