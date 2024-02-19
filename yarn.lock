@@ -119,16 +119,6 @@
     open "^7.0.3"
     server-destroy "^1.0.1"
 
-"@google-cloud/local-auth@^2.1.0":
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/@google-cloud/local-auth/-/local-auth-2.1.1.tgz"
-  integrity sha512-tOJ73TSyPxelUEVN2AdHVzFG857U5i3wZHMUGgm6wRtz9WN4O3D761eYORB9jXfIggA3+v5BUw+VIE5wAKHhkg==
-  dependencies:
-    arrify "^2.0.1"
-    google-auth-library "^8.0.2"
-    open "^7.0.3"
-    server-destroy "^1.0.1"
-
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.14"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.14.tgz"

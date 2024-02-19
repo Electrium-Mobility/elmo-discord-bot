@@ -49,7 +49,7 @@ for (const folder of commandFolders) {
 //event listener
 client.on(Events.InteractionCreate, async interaction => {
 	if (interaction.isChatInputCommand()){
-		console.log(interaction);
+		// console.log(interaction);
 
 		const command = interaction.client.commands.get(interaction.commandName);
 
