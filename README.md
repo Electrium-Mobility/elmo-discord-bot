@@ -56,6 +56,36 @@ nodemon .
 ```
 
 <!------------------------------------------------------------------->
+# 🏗️ Modifying GitHub Secrets (CI/CD)
+Note: CI/CD pipeline has not been set up yet.
+
+### 1. ⚙️ Modify Secrets in config.json:
+```
+Go to GitHub Repo -> Settings -> Secrets and variables -> Actions -> Modify the repo secret
+```
+
+### 2. ⚙️ Modify Secrets in credentials.json:
+   
+2.1 🔒 Encode the credentials.json into base64 encoding:
+   
+Mac: Type the following in the terminal
+
+```
+base64 -i <in-file> -o <out-file>
+```
+
+Windows:
+```
+certutil -encode <in-file> tmp.b64 && findstr /v /c:- tmp.b64 > <out-file>
+```
+
+2.2 Head to GitHub
+```
+Go to GitHub Repo -> Settings -> Secrets and variables -> Actions -> Modify the repo secret (CREDENTIALS_JSON_BASE64)
+```
+After that, GitHub Actions will run if any changes on the main branch are detected!
+
+<!------------------------------------------------------------------->
 
 # 🎈 For Beginner Developers
 

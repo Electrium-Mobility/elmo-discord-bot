@@ -1,0 +1,48 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    # - run: npm test
+    - name: Decode credentials.json
+      run: |
+        echo "${{ secrets.CREDENTIALS_JSON_BASE64 }}" | base64 -d > credentials.json
+      env:
+        CREDENTIALS_JSON_BASE64: ${{ secrets.CREDENTIALS_JSON_BASE64 }}
+    - name: Build Discord Bot
+      env:
+        SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+        TOKEN: ${{ secrets.TOKEN }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        GUILD_ID: ${{ secrets.GUILD_ID }}
+        GITHUBTOKEN: ${{ secrets.GITHUBTOKEN }}
+        CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+        CLICKUP_TOKEN: ${{ secrets.CLICKUP_TOKEN }}
+        CLICKUP_TEAM_ID: ${{ secrets.CLICKUP_TEAM_ID }}
+      run: npm start

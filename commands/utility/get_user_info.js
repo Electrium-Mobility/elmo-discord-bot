@@ -2,11 +2,14 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 /*  ----------------------
 Google Sheets Setup
 -------------------------- */
-const { spreadsheetId } = require('../../config.json');
+//const { spreadsheetId } = require('../../config.json');
+const spreadsheetId = process.env.SPREADSHEET_ID;
 const { google } = require('googleapis');
+//const credentials = JSON.parse(Buffer.from(process.env.CREDENTIALS_JSON_BASE64, 'base64').toString('utf-8'));
 
 const auth = new google.auth.GoogleAuth({
 	keyFile: "./credentials.json",
+    //credentials: credentials,
 	scopes: "https://www.googleapis.com/auth/spreadsheets"
 })
 const sheetClient = auth.getClient();
