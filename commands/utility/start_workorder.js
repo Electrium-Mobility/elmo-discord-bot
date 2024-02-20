@@ -27,13 +27,15 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply();
         const title = interaction.options.getString('title');
-        const templateSpreadsheetId = '1Fe80WUurIxBpamfO8KW-JXHpKwyi0542UbdPNqVH57o'
+        const templateSpreadsheetId = '1Fe80WUurIxBpamfO8KW-JXHpKwyi0542UbdPNqVH57o';
+        const folderId = '1yru1fH2fYhCgTIGW5fvqiWDNeoPxDsaF';
 
         // Use the Drive API to copy the template spreadsheet
         const copiedSheet = await driveService.files.copy({
             fileId: templateSpreadsheetId,
             requestBody: {
                 name: title,
+                parents: [folderId],
             },
         });
 
@@ -43,10 +45,10 @@ module.exports = {
             requestBody: {
                 type: 'user',
                 role: 'writer', 
-                emailAddress: 'georgeli293@gmail.com' // Gmail Account
+                emailAddress: 'electriummobility@gmail.com' // Gmail Account
             },
         });
-        
+
         // Reply with the spreadsheet link
         const spreadsheetUrl = `https://docs.google.com/spreadsheets/d/${copiedSheet.data.id}/edit`;
         await interaction.editReply(`Workorder: ${title} has been successfully created. Access it here: ${spreadsheetUrl}`);

@@ -9,6 +9,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/retrieve_task_lists');
+const { fetchSheetTitles } = require('./helperFunctions/fetch_sheet_titles');
 // Create a new client instance
 const client = new Client({
 	intents:
@@ -87,7 +88,26 @@ client.on(Events.InteractionCreate, async interaction => {
 				// max autocomplete options supported by discord is 25
 				filteredTaskLists.slice(0, 25).map(tasklist => ({ name: tasklist.name, value: tasklist.name }))
 			);
-			return;
+		}
+	}
+	else if (interaction.isAutocomplete() && interaction.commandName === 'addworkorder'){
+        const focusedOption = interaction.options.getFocused(true);
+
+		if (focusedOption.name === 'title') {
+			const titles = await fetchSheetTitles(); // Fetches titles of the Google Sheets in the Work Order folder
+			let filteredTitles = titles.filter(title => 
+                title.toLowerCase().includes(focusedOption.value.toLowerCase())
+			);
+		
+
+			filteredTitles = filteredTitles.sort((a, b) => {
+				return a.localeCompare(b);
+			});
+
+			// Respond with up to 25 choices that match the user's input
+			await interaction.respond(
+				filteredTitles.slice(0, 25).map(title => ({ name: title, value: title }))
+			);
 		}
 	}
 });
