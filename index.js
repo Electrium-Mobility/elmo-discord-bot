@@ -90,10 +90,10 @@ client.on(Events.InteractionCreate, async interaction => {
 			);
 		}
 	}
-	else if (interaction.isAutocomplete() && interaction.commandName === 'addworkorder'){
+	else if (interaction.isAutocomplete() && (interaction.commandName === 'addworkorder' || interaction.commandName === 'sendworkorder' || interaction.commandName === 'viewworkorder')){
         const focusedOption = interaction.options.getFocused(true);
 
-		if (focusedOption.name === 'title') {
+		if (focusedOption.name === 'title' || focusedOption.name === 'title2' || focusedOption.name === 'title3' || focusedOption.name === 'title4' || focusedOption.name === 'title5') {
 			const titles = await fetchSheetTitles(); // Fetches titles of the Google Sheets in the Work Order folder
 			let filteredTitles = titles.filter(title => 
                 title.toLowerCase().includes(focusedOption.value.toLowerCase())
