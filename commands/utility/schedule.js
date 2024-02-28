@@ -22,8 +22,11 @@ module.exports = {
     // get user info
     const user = interaction.guild.members.cache.get(interaction.member.id)
 
+    // get all roles in server
+    let list = [];
+    interaction.guild.roles.cache.forEach(role => list.push(role.name));
     // get array of user's roles
-    let rolesList = await getRoles(user);
+    let rolesList = await getRoles(user, list);
 
     // get next 15 events from calendars
     const res = await calendar.events.list({
@@ -88,25 +91,7 @@ module.exports = {
 	},
 };
 
-async function getRoles(user) {
-  let rolesList = [
-    "scooter",
-    "vroom",
-    "Management",
-    "Finance",
-    "Marketing",
-    "webdev",
-    "bakfiets",
-    "stealth bike",
-    "scooter",
-    "CF Skateboard",
-    "Electric skateboard",
-    "repair team",
-    "mechanical",
-    "firmware",
-    "electrical",
-    "capyware"
-  ]
+async function getRoles(user, rolesList) {
   let userRoles = [];
 
   for (roleName of rolesList) {
