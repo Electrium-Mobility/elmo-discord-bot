@@ -1,21 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType} = require('discord.js');
 const { getUserInfo, addUser } = require('../../helperFunctions/google_sheet_helpers.js');
 
-// const client = new Client();
-/*  ----------------------
-Google Sheets Setup
--------------------------- */
-const { spreadsheetId } = require('../../config.json');
-const { google } = require('googleapis');
-
-const auth = new google.auth.GoogleAuth({
-	keyFile: "./credentials.json",
-	scopes: "https://www.googleapis.com/auth/spreadsheets"
-})
-const sheetClient = auth.getClient();
-const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
-/* ------------------- */
-
 const prompts = [
   'What\'s your full name? (example Sherwin Chiu)',
   'What\'s your uWaterloo email? (example s36chiu@uwaterloo.ca)',
