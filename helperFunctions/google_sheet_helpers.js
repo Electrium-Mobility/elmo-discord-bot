@@ -38,12 +38,6 @@ async function getRows() {
     return rows;
 }
 
-async function getUserInfo(username) {
-    const rows = await getRows();
-    // find the provided user in column E
-    return rows.data.values.find(row => row[4] === username);
-}
-
 /*  ----------------------
 Create User Function 
 -------------------------- */
@@ -264,7 +258,6 @@ async function copySheet(title, templateSpreadsheetId, folderId) {
 module.exports = {
     fetchSheetTitles,
     getSheetIdByTitle,
-    getUserInfo,
     findFirstEmptyRow,
     getFirstSheetId,
     updateSumFormula,
