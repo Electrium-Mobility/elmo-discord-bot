@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType} = require('discord.js');
-const { getUserInfo, addUser } = require('../../helperFunctions/google_sheet_helpers.js');
+const { getRows, addUser } = require('../../helperFunctions/google_sheet_helpers.js');
 
 const prompts = [
   'What\'s your full name? (example Sherwin Chiu)',
@@ -27,7 +27,8 @@ module.exports = {
     const user = interaction.options.getUser('user');
     const username = await user.username;
 
-    let data = await getUserInfo(username);
+    let rows = await getRows();
+    let data = rows.data.values.find(row => row[4] === username);
 
     // if user can be found
     if (data) {
