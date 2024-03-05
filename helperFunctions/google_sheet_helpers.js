@@ -8,13 +8,18 @@ const auth = new google.auth.GoogleAuth({
     keyFile: "./credentials.json",
 	scopes: [
         "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/spreadsheets"
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/calendar.readonly"
     ],
 })
+// Sheets Auth
 const sheetClient = auth.getClient();
 const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
 const sheetsService = google.sheets({ version: 'v4', auth });
-
+// Calendar Auth
+const calendar = google.calendar({ version: "v3", auth });
+const calendarId = "c2e4ddc715d346cd957fadf163edcded4b957fcb6381d5e4b5f503c660689de5@group.calendar.google.com";
+// Drive Auth
 const drive = google.drive({version: 'v3', auth});
 const folderId = '1yru1fH2fYhCgTIGW5fvqiWDNeoPxDsaF'; // Specify your folder ID
 /* ------------------- */
@@ -36,9 +41,8 @@ async function getUserInfo(username) {
 /*  ----------------------
 Create User Function 
 -------------------------- */
-
 async function addUser(username, answers) {
-    // get Google sheet column A 
+    // get Google sheet columns
     const rows = await googleSheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: spreadsheetId,
@@ -58,6 +62,38 @@ async function addUser(username, answers) {
         values: [[lastRow, answers[0], "", answers[1], username, answers[2], answers[3], "", answers[4], answers[5], answers[6]]]
     } 
     })
+}
+
+/*  ----------------------
+Get Email Function
+-------------------------- */
+async function getEmail(username) {
+    // get Google sheet columns D and E (email and discord)
+    const rows = await googleSheets.spreadsheets.values.get({
+			auth: auth,
+			spreadsheetId: spreadsheetId,
+			range: "D:E"
+    });
+
+    // find the provided user in column E
+    const data = rows.data.values.find(row => row[1] === username);
+    // if user can be found
+    if (data) {
+        return data[0];
+    } else {
+        return null;
+    }
+}
+async function getEvents() {
+    // get next 15 events from calendars
+    const res = await calendar.events.list({
+      calendarId: calendarId,
+      timeMin: new Date().toISOString(),
+      maxResults: 15,
+      singleEvents: true,
+      orderBy: 'startTime',
+    });
+    return res.data.items;
 }
 
 /*  ----------------------
@@ -205,5 +241,7 @@ module.exports = {
     updateSumFormula,
     updateCell,
     copyRow,
-    addUser
+    addUser,
+    getEmail,
+    getEvents
 };

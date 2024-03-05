@@ -3,21 +3,7 @@ const chrome = require('selenium-webdriver/chrome');
 const { SlashCommandBuilder } = require('discord.js');
 const { clickup_username } = require('../../credentials.json');
 const { clickup_password } = require('../../credentials.json');
-
-/*  ----------------------
-Google Sheets Setup
--------------------------- */
-const { spreadsheetId } = require('../../config.json');
-const { google } = require('googleapis');
-
-const auth = new google.auth.GoogleAuth({
-	keyFile: "./credentials.json",
-	scopes: "https://www.googleapis.com/auth/spreadsheets"
-})
-const sheetClient = auth.getClient();
-const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
-/* ------------------- */
-
+const { getEmail } = require('../../helperFunctions/google_sheet_helpers.js');
 
 const options = new chrome.Options();
 options.addArguments('--ignore-certificate-errors');
@@ -45,24 +31,6 @@ module.exports = {
             inviteUser(clickup_username, clickup_password, email) //config
             await interaction.reply(`This command was run by ${interaction.user.username}`);
         }
-    }
-}
-
-async function getEmail(username) {
-    // get Google sheet columns D and E (email and discord)
-    const rows = await googleSheets.spreadsheets.values.get({
-			auth: auth,
-			spreadsheetId: spreadsheetId,
-			range: "D:E"
-    });
-
-    // find the provided user in column E
-    const data = rows.data.values.find(row => row[1] === username);
-    // if user can be found
-    if (data) {
-        return data[0];
-    } else {
-        return null;
     }
 }
 
