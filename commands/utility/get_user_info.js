@@ -1,18 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-/*  ----------------------
-Google Sheets Setup
--------------------------- */
-const { spreadsheetId } = require('../../config.json');
-const { google } = require('googleapis');
-
-const auth = new google.auth.GoogleAuth({
-	keyFile: "./credentials.json",
-	scopes: "https://www.googleapis.com/auth/spreadsheets"
-})
-const sheetClient = auth.getClient();
-const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
-/* ------------------- */
-
+const { getUserInfo } = require('../../helperFunctions/google_sheet_helpers.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -27,16 +14,8 @@ module.exports = {
   async execute(interaction) {
     const user = interaction.options.getUser('user');
     const username = await user.username;
-
-    // get Google sheet columns A to G
-    const rows = await googleSheets.spreadsheets.values.get({
-			auth: auth,
-			spreadsheetId: spreadsheetId,
-			range: "A:G"
-    });
-
-    // find the provided user in column E
-    const data = rows.data.values.find(row => row[4] === username);
+    
+    let data = await getUserInfo(username);
     // if user can be found
     if (data) {
       const fullName = data[1];

@@ -9,7 +9,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/retrieve_task_lists');
-const { fetchSheetTitles } = require('./helperFunctions/fetch_sheet_titles');
+const { fetchSheetTitles } = require('./helperFunctions/google_sheet_helpers');
 // Create a new client instance
 const client = new Client({
 	intents:
