@@ -38,7 +38,6 @@ module.exports = {
         const user = interaction.options.getUser('user');
         const username = await user.username;
         let email = await getEmail(username);
-
         if (!email) {
             await interaction.reply(`This user could not be found in the Google Sheet.`);
         }
@@ -58,10 +57,10 @@ async function getEmail(username) {
     });
 
     // find the provided user in column E
-    const data = rows.data.values.find(row => row[0] === username);
+    const data = rows.data.values.find(row => row[1] === username);
     // if user can be found
     if (data) {
-        return data[1];
+        return data[0];
     } else {
         return null;
     }
