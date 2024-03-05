@@ -12,6 +12,7 @@ const auth = new google.auth.GoogleAuth({
         "https://www.googleapis.com/auth/calendar.readonly"
     ],
 })
+
 // Sheets Auth
 const sheetClient = auth.getClient();
 const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
@@ -25,7 +26,7 @@ const folderId = '1yru1fH2fYhCgTIGW5fvqiWDNeoPxDsaF'; // Specify your folder ID
 /* ------------------- */
 
 /*  ----------------------
-Get User Info Function
+Get Info From Master Member Tracking Sheet Functions
 -------------------------- */
 async function getUserInfo(username) {
     // get Google sheet columns A to G
@@ -36,6 +37,16 @@ async function getUserInfo(username) {
     });
     // find the provided user in column E
     return rows.data.values.find(row => row[4] === username);
+}
+
+async function getRows() {
+    // Grab data from Member Tracking Sheet
+    const rows = await googleSheets.spreadsheets.values.get({
+        auth: auth,
+        spreadsheetId: spreadsheetId,
+        range: "A:G" // Do NOT modify this range unless you know what you're doing
+    });
+    return rows;
 }
 
 /*  ----------------------
@@ -84,6 +95,7 @@ async function getEmail(username) {
         return null;
     }
 }
+
 async function getEvents() {
     // get next 15 events from calendars
     const res = await calendar.events.list({
@@ -243,5 +255,6 @@ module.exports = {
     copyRow,
     addUser,
     getEmail,
-    getEvents
+    getEvents,
+    getRows
 };
