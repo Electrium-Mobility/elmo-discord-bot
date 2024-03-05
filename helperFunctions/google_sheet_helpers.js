@@ -28,17 +28,6 @@ const folderId = '1yru1fH2fYhCgTIGW5fvqiWDNeoPxDsaF'; // Specify your folder ID
 /*  ----------------------
 Get Info From Master Member Tracking Sheet Functions
 -------------------------- */
-async function getUserInfo(username) {
-    // get Google sheet columns A to G
-    const rows = await googleSheets.spreadsheets.values.get({
-        auth: auth,
-        spreadsheetId: spreadsheetId,
-        range: "A:G"
-    });
-    // find the provided user in column E
-    return rows.data.values.find(row => row[4] === username);
-}
-
 async function getRows() {
     // Grab data from Member Tracking Sheet
     const rows = await googleSheets.spreadsheets.values.get({
@@ -47,6 +36,12 @@ async function getRows() {
         range: "A:G" // Do NOT modify this range unless you know what you're doing
     });
     return rows;
+}
+
+async function getUserInfo(username) {
+    const rows = await getRows();
+    // find the provided user in column E
+    return rows.data.values.find(row => row[4] === username);
 }
 
 /*  ----------------------
