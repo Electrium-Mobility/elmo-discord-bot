@@ -1,8 +1,6 @@
 const { SlashCommandBuilder} = require('discord.js');
 const { getSheetIdByTitle } = require('../../helperFunctions/google_sheet_helpers');
 
-const { google } = require('googleapis');
-
 const fs = require('fs');
 const path = require('path');
 const mime = require('mime-types');
@@ -15,16 +13,6 @@ const EMAIL_DEST = 'georgeli293@gmail.com'; /* Dest of the email E.g georgeli293
 const EMAIL_SUBJECT = 'Electrium Mobility - Workorder - Team Funds';
 const EMAIL_BODY = 'Hi Sarah,\n\n Please see the attached work orders \n\n Thanks\n Julian Choi';
 
-/* ------------------- */
-// Setup for Google sheets and drive
-const auth = new google.auth.GoogleAuth({
-    keyFile: "./credentials.json",
-	scopes: [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive"
-    ],
-})
-/* ------------------- */
 
 module.exports = {
 	data: new SlashCommandBuilder()

@@ -244,6 +244,28 @@ async function copyRow(spreadsheetId, sheetId, sourceRowIndex, destinationRowInd
     }
 }
 
+async function copySheet(title, templateSpreadsheetId, folderId) {
+    const result = await drive.files.copy({
+        fileId: templateSpreadsheetId,
+        requestBody: {
+            name: title,
+            parents: [folderId],
+        },
+    });
+
+    // Share the copied spreadsheet with gmail account
+    drive.permissions.create({
+        fileId: result.data.id,
+        requestBody: {
+            type: 'user',
+            role: 'writer', 
+            emailAddress: 'electriummobility@gmail.com' // Gmail Account
+        },
+    });
+
+    return result;
+}
+
 module.exports = {
     fetchSheetTitles,
     getSheetIdByTitle,
@@ -256,5 +278,6 @@ module.exports = {
     addUser,
     getEmail,
     getEvents,
-    getRows
+    getRows,
+    copySheet
 };
