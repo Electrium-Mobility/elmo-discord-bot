@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/voice": "^0.16.1",
     "@google-cloud/local-auth": "^2.1.0",
     "@octokit/rest": "^20.0.2",
     "axios": "^1.6.5",

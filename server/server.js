@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
-const client = new Client({intents:[GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]});
+const client = new Client({intents:[GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates]});
 client.login(token);
 
 const port = 3000;

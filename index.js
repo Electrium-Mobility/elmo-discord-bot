@@ -12,7 +12,7 @@ const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/r
 // Create a new client instance
 const client = new Client({
 	intents:
-		[GatewayIntentBits.Guilds]
+		[GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates]
 });
 
 
