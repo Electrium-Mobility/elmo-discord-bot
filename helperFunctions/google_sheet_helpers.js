@@ -29,7 +29,6 @@ async function getUserInfo(username) {
         spreadsheetId: spreadsheetId,
         range: "A:G"
     });
-    console.log(rows.data.values.find(row => row[4] == username));
     // find the provided user in column E
     return rows.data.values.find(row => row[4] === username);
 }
@@ -38,7 +37,28 @@ async function getUserInfo(username) {
 Create User Function 
 -------------------------- */
 
+async function addUser(username, answers) {
+    // get Google sheet column A 
+    const rows = await googleSheets.spreadsheets.values.get({
+        auth: auth,
+        spreadsheetId: spreadsheetId,
+        range: "A:B"
+    });
 
+    // find last row
+    const lastRow = rows.data.values.length;
+
+    googleSheets.spreadsheets.values.append({
+    auth: auth,
+    spreadsheetId: spreadsheetId,
+    range: "A:G",
+    valueInputOption: "USER_ENTERED",
+    resource: {
+        majorDimension: "ROWS",
+        values: [[lastRow, answers[0], "", answers[1], username, answers[2], answers[3], "", answers[4], answers[5], answers[6]]]
+    } 
+    })
+}
 
 /*  ----------------------
 Workorder-Related Functions
@@ -184,5 +204,6 @@ module.exports = {
     getFirstSheetId,
     updateSumFormula,
     updateCell,
-    copyRow
+    copyRow,
+    addUser
 };

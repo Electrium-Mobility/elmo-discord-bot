@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType} = require('discord.js');
+const { getUserInfo, addUser } = require('../../helperFunctions/google_sheet_helpers.js');
 
 // const client = new Client();
 /*  ----------------------
@@ -41,17 +42,8 @@ module.exports = {
     const user = interaction.options.getUser('user');
     const username = await user.username;
 
-    // get Google sheet columns A to G
-    const rows = await googleSheets.spreadsheets.values.get({
-			auth: auth,
-			spreadsheetId: spreadsheetId,
-			range: "A:G"
-    });
+    let data = await getUserInfo(username);
 
-    // find user
-    const data = rows.data.values.find(row => row[4] === username);
-    // find last row
-    const lastRow = rows.data.values.length;
     // if user can be found
     if (data) {
       await interaction.reply({
@@ -98,26 +90,12 @@ module.exports = {
         setTimeout(() => {
         }, 1000);
       }
-      console.log(answers)
+      console.log(answers);
+      addUser(username, answers);
 
-      googleSheets.spreadsheets.values.append({
-        auth: auth,
-        spreadsheetId: spreadsheetId,
-        range: "A:G",
-        valueInputOption: "USER_ENTERED",
-        resource: {
-          majorDimension: "ROWS",
-          values: [[lastRow, answers[0], "", answers[1], username, answers[2], answers[3], "", answers[4], answers[5], answers[6]]]
-        } 
-      })
       await thread.delete()
       await user.send("Success! You've been added as an Electrium Member. Ask Sherwin for any questions you have!")
 
     }
 	},
 };
-// so two approaches we can go for:
-// command interaction, where /createuser (type discord) (name) (email) (uwaterloo email) (all this other stuff)
-// or we can have /createuser (type discord) and it DMs and collects that information
-// so it'll be like a form
-// i kinda like the second one

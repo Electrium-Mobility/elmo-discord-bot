@@ -1,5 +1,5 @@
 const { SlashCommandBuilder} = require('discord.js');
-const { getSheetIdByTitle } = require('../../helperFunctions/fetch_sheet_titles');
+const { getSheetIdByTitle } = require('../../helperFunctions/google_sheet_helpers');
 
 const { google } = require('googleapis');
 
@@ -24,7 +24,6 @@ const auth = new google.auth.GoogleAuth({
         "https://www.googleapis.com/auth/drive"
     ],
 })
-
 /* ------------------- */
 
 module.exports = {
