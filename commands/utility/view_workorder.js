@@ -1,19 +1,6 @@
 const { SlashCommandBuilder} = require('discord.js');
 const { getSheetIdByTitle } = require('../../helperFunctions/google_sheet_helpers');
 
-const fs = require('fs');
-const path = require('path');
-const mime = require('mime-types');
-
-const TOKEN_PATH = './tokens.json'; /* Locaiton of the OAuth2.0 Token for the automated emailing */ 
-const REDIRECT_URL = 'http://localhost:3000/oauth2callback'; /* Page that user will be redirected to after authenticating gmail api */
-
-/* EMAIL PARAMETERS - FEEL FREE TO CHANGE FOR YOUR SPECIFIC EMAIL NEEDS */
-const EMAIL_DEST = 'georgeli293@gmail.com'; /* Dest of the email E.g georgeli293@gmail.com  CHANGE LATER PLZ DONT SPAM MY EMAIL */
-const EMAIL_SUBJECT = 'Electrium Mobility - Workorder - Team Funds';
-const EMAIL_BODY = 'Hi Sarah,\n\n Please see the attached work orders \n\n Thanks\n Julian Choi';
-
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('viewworkorder')
