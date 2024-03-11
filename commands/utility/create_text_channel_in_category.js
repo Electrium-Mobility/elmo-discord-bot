@@ -4,7 +4,7 @@ const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('disco
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('createchannelincategory') // Command name matching file name
-        .setDescription('Creates a new text channel')
+        .setDescription('Creates a new text channel within the current category')
         // Text channel name
         .addStringOption((option) =>
             option

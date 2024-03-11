@@ -4,7 +4,7 @@ const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('disco
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('createvoicechannelincategory') // Command name matching file name
-        .setDescription('Creates a new voice channel')
+        .setDescription('Creates a new voice channel within the current category')
         // Text channel name
         .addStringOption((option) =>
             option
