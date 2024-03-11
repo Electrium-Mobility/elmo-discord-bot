@@ -7,12 +7,12 @@ const { clickup_password } = require('../../credentials.json');
 const options = new chrome.Options();
 options.addArguments('--ignore-certificate-errors');
 options.addArguments('--ignore-ssl-errors');
-options.addArguments('--headless');
+// options.addArguments('--headless');
 options.setAcceptInsecureCerts();
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('clickup_inv')
+		.setName('altium_inv')
 		.setDescription('sends a clickup invitation')
 		.addStringOption(option =>
 			option
@@ -34,7 +34,7 @@ module.exports = {
     }
 }
 
-async function inviteUser(email, password, invites, admin) {
+async function inviteUser(email, password, invite, admin) {
     const driver = await new Builder()
     .forBrowser('chrome')
     .setChromeOptions(options)
@@ -52,9 +52,8 @@ async function inviteUser(email, password, invites, admin) {
         
         // await driver.findElement(By.xpath('/html/body/div[10]/div/div[2]/div/form/div[1]/div/div[2]/div/div/div/input')).sendKeys(invites);
 
-        for(let i = 0; i < invites.length; i++){
             await driver.findElement(By.xpath('//*[@id="app-team"]/div/div/div[2]/div[2]/div[3]/div[1]/div[1]/button')).click();
-            await driver.findElement(By.xpath('/html/body/div[10]/div/div[2]/div/form/div[1]/div/div[2]/div/div/div/input')).sendKeys(invites[i].email);
+            await driver.findElement(By.xpath('/html/body/div[10]/div/div[2]/div/form/div[1]/div/div[2]/div/div/div/input')).sendKeys(invite);
             if(!admin){
                 await driver.findElement(By.xpath('/html/body/div[10]/div/div[2]/div/form/div[2]/div/div[2]/div/div/div[1]/input')).clear();
                 await driver.findElement(By.xpath('/html/body/div[10]/div/div[2]/div/form/div[2]/div/div[2]/div/div/div[1]/input')).sendKeys('Engineers');
@@ -72,8 +71,6 @@ async function inviteUser(email, password, invites, admin) {
             await new Promise(resolve => setTimeout(resolve, 1000));
             await driver.findElement(By.xpath('/html/body/div[11]/div/div/div/div[2]/button[1]')).click();
             await new Promise(resolve => setTimeout(resolve, 2000));
-            
-        }
 
 
     }
@@ -81,15 +78,3 @@ async function inviteUser(email, password, invites, admin) {
         driver.quit();
     }
 }
-
-const username = 'j444li@uwaterloo.ca';
-const password = 'Myor910v!';
-const test = "jenniferli8263@gmail.com"
-const emailsToInvite = [
-    {
-        email:'electriummobility@gmail.com',
-        admin: true
-    },
-];
-
-inviteUser(username, password, emailsToInvite);
