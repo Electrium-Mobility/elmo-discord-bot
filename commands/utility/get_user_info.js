@@ -46,9 +46,9 @@ module.exports = {
       if (!team) {
         team = "N/A";
       }
-      await interaction.reply(`Full Name: ${fullName}\nEmail: ${email}\nRole: ${role}\nTeam: ${team}`);
+      await interaction.reply({ content: `Full Name: ${fullName}\nEmail: ${email}\nRole: ${role}\nTeam: ${team}`, ephemeral: true });
     } else {
-      await interaction.reply(`I couldn't find this user in the W24 member list :(`)
+      await interaction.reply({ content: `I couldn't find this user in the W24 member list :(`, ephemeral: true });
     }
 	},
 };
