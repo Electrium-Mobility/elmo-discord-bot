@@ -3,9 +3,6 @@ const chrome = require('selenium-webdriver/chrome');
 const { SlashCommandBuilder } = require('discord.js');
 const { clickup_username } = require('../../credentials.json');
 const { clickup_password } = require('../../credentials.json');
-const { SlashCommandBuilder } = require('discord.js');
-const { clickup_username } = require('../../credentials.json');
-const { clickup_password } = require('../../credentials.json');
 
 const options = new chrome.Options();
 options.addArguments('--ignore-certificate-errors');
