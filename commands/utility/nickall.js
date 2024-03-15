@@ -1,17 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
-/*  ----------------------
-Google Sheets Setup
--------------------------- */
-const { spreadsheetId } = require("../../config.json");
-const { google } = require("googleapis");
-
-const auth = new google.auth.GoogleAuth({
-	keyFile: "./credentials.json",
-	scopes: "https://www.googleapis.com/auth/spreadsheets"
-})
-const sheetClient = auth.getClient();
-const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
-/* ------------------- */
+const { getRows } = require('../../helperFunctions/google_sheet_helpers');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -36,14 +24,9 @@ module.exports = {
 			discordmembers.set(username, id);
 		}
 
-		// Grab data from Google Sheets
-		const rows = await googleSheets.spreadsheets.values.get({
-			auth: auth,
-			spreadsheetId: spreadsheetId,
-			range: "A:G" // Do NOT modify this range unless you know what you're doing
-		});
-		
-		rows.data.values.forEach((row, idx) => {
+			// Google Sheets helper function to get member tracking data
+			let rows = await getRows();
+			rows.data.values.forEach((row, idx) => {
 			// Skip headers
 			if (idx === 0) return;
 			
