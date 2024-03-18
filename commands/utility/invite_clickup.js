@@ -7,7 +7,7 @@ const { clickup_password } = require('../../credentials.json');
 const options = new chrome.Options();
 options.addArguments('--ignore-certificate-errors');
 options.addArguments('--ignore-ssl-errors');
-options.addArguments('--headless');
+// options.addArguments('--headless');
 options.setAcceptInsecureCerts();
 
 module.exports = {
@@ -17,12 +17,13 @@ module.exports = {
 		.addStringOption(option =>
 			option
 				.setName('email')
-				.setDescription('members email')
+				.setDescription("member's email")
 				.setRequired(true)),
 	async execute(interaction) {
         const email = interaction.options.getString('email');
         inviteUser(clickup_username, clickup_password, email) //config
-        await interaction.reply(`This command was run by ${interaction.user.username}`);
+        await interaction.reply({ content: `Invited ${email} to Clickup!`, ephemeral: true });
+        // await interaction.reply(`This command was run by ${interaction.user.username}`);
     }
 }
 
