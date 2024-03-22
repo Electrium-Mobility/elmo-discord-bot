@@ -1,0 +1,20 @@
+{
+	"extends": "eslint:recommended",
+	"env": {
+		"node": true,
+		"es6": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 2021
+	},
+	"rules": {
+        "semi": ["error", "always"],
+        "no-dupe-else-if": [1],
+        "no-dupe-keys": [2],
+        "no-unused-vars": [1],
+        "require-await": [2],
+        "quotes": ["error", "double"],
+        "no-var": [2],
+        "prefer-const": [1]
+	}
+}

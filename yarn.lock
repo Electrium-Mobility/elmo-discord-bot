@@ -700,6 +700,11 @@ eslint-visitor-keys@^3.3.0, eslint-visitor-keys@^3.4.1, eslint-visitor-keys@^3.4
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
+eslist@^1.0.0-beta.1:
+  version "1.0.0-beta.1"
+  resolved "https://registry.npmjs.org/eslist/-/eslist-1.0.0-beta.1.tgz"
+  integrity sha512-E62RN0l1yuH9O/RRdnB+MYTqB9/oPIc+0Y6N5HMzwTQJ1T4uAdGQS0S97E8UGsT/hCncv0NduaJztsnRRGkpVw==
+
 espree@^9.6.0, espree@^9.6.1:
   version "9.6.1"
   resolved "https://registry.npmjs.org/espree/-/espree-9.6.1.tgz"
