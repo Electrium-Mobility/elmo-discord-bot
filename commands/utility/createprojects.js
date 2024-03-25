@@ -28,33 +28,33 @@ const setUpProject = async (interaction, projectName) => {
 
         const gen = await interaction.guild.channels.create({
             name: projectName.replaceAll(" ", "-") + "-gen",
-            type: ChannelType.GuildText
+            type: ChannelType.GuildText, 
+            parent: projectCategory
         });
-        await gen.setParent(projectCategory);
 
         const mech = await interaction.guild.channels.create({
             name: projectName.replaceAll(" ", "-") + "-mech",
-            type: ChannelType.GuildText
+            type: ChannelType.GuildText,
+            parent: projectCategory
         });
-        await mech.setParent(projectCategory);
 
         const electrical = await interaction.guild.channels.create({
             name: projectName.replaceAll(" ", "-") + "-electrical",
-            type: ChannelType.GuildText
+            type: ChannelType.GuildText,
+            parent: projectCategory
         });
-        await electrical.setParent(projectCategory);
 
         const firmware = await interaction.guild.channels.create({
             name: projectName.replaceAll(" ", "-") + "-firmware",
-            type: ChannelType.GuildText
+            type: ChannelType.GuildText,
+            parent: projectCategory
         });
-        await firmware.setParent(projectCategory);
 
         const voice = await interaction.guild.channels.create({
             name: projectName.replaceAll(" ", "-") + "-gen",
-            type: ChannelType.GuildVoice
+            type: ChannelType.GuildVoice,
+            parent: projectCategory
         });
-        await voice.setParent(projectCategory);
     } catch (err) {
         throw err;
     }
@@ -72,6 +72,14 @@ module.exports = {
         ),
         
     async execute(interaction) {
+        try {
+            if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+                await interaction.reply("You do not have permission to run this command");
+            }
+        } catch (err) {
+            throw err;
+        }
+
         await interaction.reply("Creating Project Categories...");
         const projectNames = interaction.options.getString("project-list").split(",");
         const projectPromises = projectNames.map(name => setUpProject(interaction, name));

@@ -1,4 +1,4 @@
-const {SlashCommandBuilder, ChannelType} = require("discord.js");
+const {SlashCommandBuilder, ChannelType, PermissionFlagsBits} = require("discord.js");
 
 //move channel to archiveCategory
 const archive = async (interaction, channel, archiveCategory) => {
@@ -42,6 +42,14 @@ module.exports = {
         ),
         
     async execute(interaction) {
+        try {
+            if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+                await interaction.reply("You do not have permission to run this command");
+            }
+        } catch (err) {
+            throw err;
+        }
+
         await interaction.reply("Archiving old term projects...");
         const channel = interaction.options.getChannel("channel");
         const channelsList = interaction.options.getString("channels-list");
