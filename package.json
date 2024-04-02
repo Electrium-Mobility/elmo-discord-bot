@@ -23,6 +23,7 @@
     "express": "^4.18.2",
     "googleapis": "^105.0.0",
     "play-dl": "^1.9.7",
+    "mime-types": "^2.1.35",
     "selenium-webdriver": "^4.17.0",
     "youtube-dl-exec": "^2.5.7"
   },

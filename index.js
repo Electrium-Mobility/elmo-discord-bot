@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const { Player } = require("discord-player");
 
 const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/retrieve_task_lists');
+const { fetchSheetTitles } = require('./helperFunctions/fetch_sheet_titles');
 // Create a new client instance
 const client = new Client({
 	intents:
@@ -50,28 +51,28 @@ for (const folder of commandFolders) {
 
 //event listener
 client.on(Events.InteractionCreate, async interaction => {
-	if (interaction.isChatInputCommand()){
-		console.log(interaction);
+	if (!interaction.isChatInputCommand()) return;
+	
+	const command = interaction.client.commands.get(interaction.commandName);
 
-		const command = interaction.client.commands.get(interaction.commandName);
 
-		if (!command) {
-			console.error(`No command matching ${interaction.commandName} was found.`);
-			return;
-		}
+	if (!command) {
+		console.error(`No command matching ${interaction.commandName} was found.`);
+		return;
+	}
 
-		try {
-			await command.execute(interaction);
-		} catch (error) {
-			console.error(error);
-			if (interaction.replied || interaction.deferred) {
-				await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
-			} else {
-				await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-			}
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		if (interaction.replied || interaction.deferred) {
+			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+		} else {
+			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 		}
 	}
-	else if (interaction.isAutocomplete() && interaction.commandName === 'createtask') {
+	
+	if (interaction.isAutocomplete() && interaction.commandName === 'createtask') {
 		const focusedOption = interaction.options.getFocused(true);
 	
 		if (focusedOption.name === 'tasklistname') {
@@ -89,7 +90,26 @@ client.on(Events.InteractionCreate, async interaction => {
 				// max autocomplete options supported by discord is 25
 				filteredTaskLists.slice(0, 25).map(tasklist => ({ name: tasklist.name, value: tasklist.name }))
 			);
-			return;
+		}
+	}
+	else if (interaction.isAutocomplete() && (interaction.commandName === 'addworkorder' || interaction.commandName === 'sendworkorder' || interaction.commandName === 'viewworkorder')){
+        const focusedOption = interaction.options.getFocused(true);
+
+		if (focusedOption.name === 'title' || focusedOption.name === 'title2' || focusedOption.name === 'title3' || focusedOption.name === 'title4' || focusedOption.name === 'title5') {
+			const titles = await fetchSheetTitles(); // Fetches titles of the Google Sheets in the Work Order folder
+			let filteredTitles = titles.filter(title => 
+                title.toLowerCase().includes(focusedOption.value.toLowerCase())
+			);
+		
+
+			filteredTitles = filteredTitles.sort((a, b) => {
+				return a.localeCompare(b);
+			});
+
+			// Respond with up to 25 choices that match the user's input
+			await interaction.respond(
+				filteredTitles.slice(0, 25).map(title => ({ name: title, value: title }))
+			);
 		}
 	}
 });
