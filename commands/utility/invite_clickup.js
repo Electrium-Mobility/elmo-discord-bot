@@ -3,6 +3,7 @@ const chrome = require('selenium-webdriver/chrome');
 const { SlashCommandBuilder } = require('discord.js');
 const { clickup_username } = require('../../credentials.json');
 const { clickup_password } = require('../../credentials.json');
+const { getEmail } = require('../../helperFunctions/google_sheet_helpers.js');
 
 const options = new chrome.Options();
 options.addArguments('--ignore-certificate-errors');
@@ -14,15 +15,22 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('clickup_inv')
 		.setDescription('sends a clickup invitation')
-		.addStringOption(option =>
+		.addUserOption(option =>
 			option
-				.setName('email')
-				.setDescription('members email')
-				.setRequired(true)),
-	async execute(interaction) {
-        const email = interaction.options.getString('email');
-        inviteUser(clickup_username, clickup_password, email) //config
-        await interaction.reply(`This command was run by ${interaction.user.username}`);
+				.setName('user')
+				.setDescription('The user we wish to get info on')
+                .setRequired(true)),
+    async execute(interaction) {
+        const user = interaction.options.getUser('user');
+        const username = await user.username;
+        let email = await getEmail(username);
+        if (!email) {
+            await interaction.reply(`This user could not be found in the Google Sheet.`);
+        }
+        else {
+            inviteUser(clickup_username, clickup_password, email) //config
+            await interaction.reply(`This command was run by ${interaction.user.username}`);
+        }
     }
 }
 
