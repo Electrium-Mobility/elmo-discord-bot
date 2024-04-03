@@ -3,9 +3,7 @@ const {SlashCommandBuilder, ChannelType, PermissionFlagsBits} = require("discord
 //move channel to archiveCategory
 const archive = async (interaction, channel, archiveCategory) => {
     if (channel.type == ChannelType.GuildCategory) { //if selected channel is a category, move its contents, then delete the category
-        console.log(channel.id);
         const children = interaction.guild.channels.cache.filter(c => c.parentId === channel.id);
-        console.log(children);
         const setParent = async (child) => {
             await child.setParent(archiveCategory);
         }
@@ -82,9 +80,7 @@ module.exports = {
         try {
             if (channelsList) {
             const channelNames = channelsList.split(",");
-            console.log(channelNames);
             const channels = channelNames.map(name => interaction.guild.channels.cache.find(channel => channel.name.toLowerCase() === name.toLowerCase()));
-            console.log(channels);
             const channelPromises = channels.map(channel => {
                 if (channel) {
                     return archive(interaction, channel, archiveCategory)}
@@ -94,7 +90,6 @@ module.exports = {
         } catch (err) {
             await interaction.editReply(
                 "Could not archive channels-list. Make sure you listed the channels separated by commas, with no spaces. \nNOTE: If you want to archive just one channel/category, try using the channel option instead");
-                console.error(err);
             return;
         }
 
