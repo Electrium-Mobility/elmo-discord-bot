@@ -1,5 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { getSheetIdByTitle } = require('../../helperFunctions/fetch_sheet_titles');
+const axios = require('axios');
+const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 /*  ----------------------
 Google Sheets Setup
 -------------------------- */
@@ -52,6 +55,19 @@ module.exports = {
                     await updateCell(spreadSheetId, `A${currentRow + 2}`, currentRow - 3);
                     await copyRow(spreadSheetId, sheetId, currentRow, currentRow + 1);
                     await updateCell(spreadSheetId, `A${currentRow + 1}`, currentRow - 4);
+                }
+                if(link.includes('amazon')) {
+                    const price = await extractPriceFromAmazon(link);
+                    if (price) {
+                        const priceCell = `E${currentRow}`;
+                        await updateCell(spreadSheetId, priceCell, price);
+                    }
+                } else if (link.includes('aliexpress')) {
+                    const price = await extractPriceFromAliExpress(link);
+                    if (price) {
+                        const priceCell = `E${currentRow}`;
+                        await updateCell(spreadSheetId, priceCell, price);
+                    }
                 }
                 const cell = `I${currentRow}`; // The cell we are currently writing to in this iteration
                 await updateCell(spreadSheetId, cell, link);
@@ -168,6 +184,50 @@ async function copyRow(spreadsheetId, sheetId, sourceRowIndex, destinationRowInd
     } catch (error) {
         console.error('Error copying the row:', error);
         // Handle error
+    }
+}
+
+async function extractPriceFromAmazon(url) {
+    try {
+        const response = await axios.get(url);
+        const html = response.data;
+        const $ = cheerio.load(html);
+
+        const price_text = $('.aok-offscreen:first').text();
+        const regex = /\$[\d.]+/;
+        const match = price_text.match(regex);
+        const price = match ? match[0] : null;
+        return price
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function extractPriceFromAliExpress(url) {
+    try {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(url);
+
+        // Wait for the first digit element to be visible
+        await page.waitForSelector('span.es--char53--VKKip5c');
+
+        // Extract the first digit
+        const firstDigit = await page.evaluate(() => {
+            const element = document.querySelector('span.es--char53--VKKip5c');
+            return element ? element.textContent.trim() : null;
+        });
+
+        const restOfDigits = await page.evaluate(() => {
+            const element = document.querySelectorAll('span.es--char--Vcv75ku');
+            return element ? (element[1].textContent + element[2].textContent + element[3].textContent).trim() : null;
+        });
+        await browser.close();
+
+        const price = '$' + firstDigit + restOfDigits;
+        return price;
+    } catch (error) {
+        throw error;
     }
 }
 

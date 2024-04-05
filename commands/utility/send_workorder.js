@@ -10,9 +10,10 @@ const mime = require('mime-types');
 
 const TOKEN_PATH = './tokens.json'; /* Locaiton of the OAuth2.0 Token for the automated emailing */ 
 const REDIRECT_URL = 'http://localhost:3000/oauth2callback'; /* Page that user will be redirected to after authenticating gmail api */
+const FILLED_FORMS_FOLDER = "1cBG-BgIbqXxvfmdNcgmw5WRST8jWE2Pn";
 
 /* EMAIL PARAMETERS - FEEL FREE TO CHANGE FOR YOUR SPECIFIC EMAIL NEEDS */
-const EMAIL_DEST = 'StudentDesignCentreEngineering@uwaterloo.ca'; /* Dest of the email E.g georgeli293@gmail.com  CHANGE LATER PLZ DONT SPAM MY EMAIL */
+const EMAIL_DEST = 'georgeli293@gmail.com'; /* Dest of the email E.g georgeli293@gmail.com  CHANGE LATER PLZ DONT SPAM MY EMAIL */
 const EMAIL_SUBJECT = 'Electrium Mobility - Workorder - Team Funds';
 const EMAIL_BODY = 'Hi Sarah,\n\n Please see the attached work orders \n\n Thanks\n Julian Choi';
 
@@ -85,8 +86,10 @@ module.exports = {
             }
         }
         const filePaths = []; // Array containing all of the filepaths of the excel sheets we will email
+        const spreadsheetIds = [];
         for (const title of titles) {
             const spreadsheetId = await getSheetIdByTitle(title);
+            spreadsheetIds.push(spreadsheetId);
             if (!spreadsheetId) {
                 await interaction.editReply(`Failed to find spreadsheet with title: ${title}`);
                 return;
@@ -107,6 +110,9 @@ module.exports = {
             .then(() => console.log('Email sent successfully'))
             .catch(error => console.error('Failed to send email:', error));
 
+        for (const Id of spreadsheetIds){
+            moveFileToFolder(Id);
+        }
         await interaction.editReply(`Email sent successfully.`);
     }
 };
@@ -214,6 +220,28 @@ function createEmailMessage(to, subject, emailBody, attachmentPaths) {
     message += `--${boundary}--`;
 
     return message;
+}
+
+async function moveFileToFolder(fileId) {
+    const drive = google.drive({version: 'v3', auth});
+    try {
+        // Retrieve the existing parents to remove
+        let file = await drive.files.get({
+            fileId: fileId,
+            fields: 'parents'
+        });
+        let previousParents = file.data.parents.join(',');
+
+        // Move the file to the new folder
+        await drive.files.update({
+            fileId: fileId,
+            addParents: FILLED_FORMS_FOLDER,
+            removeParents: previousParents,
+            fields: 'id, parents'
+        });
+    } catch (error) {
+        console.error('Error moving file:', error);
+    }
 }
 
 
