@@ -107,14 +107,14 @@ New to JavaScript? Mozilla's documentation is a terrific place to head to! Good 
 
 # 👨‍💻 Discord Commands Documentation
 
-## /createtask <tasklistname> <taskname> <optional : description> <optional : duedate>
+## /createtask \<tasklistname\> \<taskname\> \<optional: description\> \<optional: duedate\>
 
 Description: Command that creates and adds a task to a tasklist on the Electrium Clickup
 
 Parameters:
-- <tasklistname> : the name of the tasklist that we want to add this task to (e.g. Discord Bot)
-- <taskname> :  the name of the task that we are creating (e.g. Add new discord bot command)
-- <description> : optional parameter that just specifies the description associated with the newly created task
-- <duedate> : optional parameter that just specifies the due date of the newly created task (yyyy-mm-dd format)
+- \<tasklistname> : the name of the tasklist that we want to add this task to (e.g. Discord Bot)
+- \<taskname> :  the name of the task that we are creating (e.g. Add new discord bot command)
+- \<description> : optional parameter that just specifies the description associated with the newly created task
+- \<duedate> : optional parameter that just specifies the due date of the newly created task (yyyy-mm-dd format)
 
  
