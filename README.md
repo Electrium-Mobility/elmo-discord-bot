@@ -117,6 +117,8 @@ Parameters:
 - \<optional:description> : optional parameter that just specifies the description associated with the newly created task
 - \<optional:duedate> : optional parameter that just specifies the due date of the newly created task (yyyy-mm-dd format)
 
-Note: *The <tasklistname> parameter is selected from a dropdown menu by loading in the contents from ClickUp API however immediately after starting the discord bot it will take about a minute to load all of the tasklists so you must wait until "Local Task lists updated successfully" is outputted in the terminal before trying to use /createtask or it won't be able to fetch any tasklistnames yet
+Note: *The \<tasklistname\> parameter is selected from a dropdown menu by loading in the contents from ClickUp API however immediately after starting the discord bot it will take about a minute to load all of the tasklists so you must wait until 'Local Task lists updated successfully' is outputted in the terminal before trying to use /createtask or it won't be able to fetch any tasklistnames yet
+
+Result: Discord bot will respond with 'Successfuly created Task' as a message if the task was successfully created and can be immediately seen on ClickUp
 
  
