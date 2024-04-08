@@ -111,7 +111,7 @@ New to JavaScript? Mozilla's documentation is a terrific place to head to! Good 
 
 Description: Command that creates and adds a task to a tasklist on the Electrium Clickup
 
-Parameters:\
+Parameters:
 - <tasklistname> : the name of the tasklist that we want to add this task to (e.g. Discord Bot)
 - <taskname> :  the name of the task that we are creating (e.g. Add new discord bot command)
 - <description> : optional parameter that just specifies the description associated with the newly created task
