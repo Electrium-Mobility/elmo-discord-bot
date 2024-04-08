@@ -125,12 +125,13 @@ Result: Discord bot will respond with 'Successfuly created Task' as a message if
 
 Description: Creates a blank Google Sheets template for a work order in the Work Order folder on the Electrium Google Drive
 
-Requirements
+Requirements: In order to use google sheets API you need to have credentials.json (from the Electrium [Discord Server](https://discord.com/channels/1039602649139523615/1197985610007335063/1214379316146741298) in the directory ELMO-DISCORD-BOT/
+
+Result: Discord bot will respond with a success message along with the Google Sheet link upon a successful creation
 
 Parameters:
-- \<tasklistname> : the name of the tasklist that we want to add this task to (e.g. Discord Bot)
-- \<taskname> :  the name of the task that we are creating (e.g. Add new discord bot command)
-- \<optional:description> : optional parameter that just specifies the description associated with the newly created task
-- \<optional:duedate> : optional parameter that just specifies the due date of the newly created task (yyyy-mm-dd format)
+- \<title> : The title of the Google Sheet we want to create
+
+## /addworkorder
 
  
