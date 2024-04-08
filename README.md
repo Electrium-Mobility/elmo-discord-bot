@@ -114,7 +114,9 @@ Description: Command that creates and adds a task to a tasklist on the Electrium
 Parameters:
 - \<tasklistname> : the name of the tasklist that we want to add this task to (e.g. Discord Bot)
 - \<taskname> :  the name of the task that we are creating (e.g. Add new discord bot command)
-- \<description> : optional parameter that just specifies the description associated with the newly created task
-- \<duedate> : optional parameter that just specifies the due date of the newly created task (yyyy-mm-dd format)
+- \<optional:description> : optional parameter that just specifies the description associated with the newly created task
+- \<optional:duedate> : optional parameter that just specifies the due date of the newly created task (yyyy-mm-dd format)
+
+Note: *The <tasklistname> parameter is selected from a dropdown menu by loading in the contents from ClickUp API however immediately after starting the discord bot it will take about a minute to load all of the tasklists so you must wait until "Local Task lists updated successfully" is outputted in the terminal before trying to use /createtask or it won't be able to fetch any tasklistnames yet
 
  
