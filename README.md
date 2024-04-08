@@ -123,15 +123,68 @@ Result: Discord bot will respond with 'Successfuly created Task' as a message if
 
 ## /startworkorder
 
-Description: Creates a blank Google Sheets template for a work order in the Work Order folder on the Electrium Google Drive
+Description: Creates a blank Google Sheets template for a work order in the (Electrium Mobility Design Team/Finance/Logistics/Work Order/) folder on the Electrium Google Drive
 
 Requirements: In order to use google sheets API you need to have credentials.json (from the Electrium [Discord Server](https://discord.com/channels/1039602649139523615/1197985610007335063/1214379316146741298) in the directory ELMO-DISCORD-BOT/
-
-Result: Discord bot will respond with a success message along with the Google Sheet link upon a successful creation
 
 Parameters:
 - \<title> : The title of the Google Sheet we want to create
 
+Result: Discord bot will respond with a success message along with the Google Sheet link upon a successful creation
+
+
+
 ## /addworkorder
+
+Description: Adds the purchase link automatically to a new row in a workorder template and will scrap the price listed on the site to the price column (if link is from Amazon or AliExpress)
+
+Requirements: In order to use google sheets API you need to have credentials.json (from the Electrium [Discord Server](https://discord.com/channels/1039602649139523615/1197985610007335063/1214379316146741298) in the directory ELMO-DISCORD-BOT/
+
+Parameters: 
+- \<title> : The title of the Google Sheet we want to edit
+- \<links> : The purchase links that we want to add to the work order (To add more than one link at a time just seperate the links by a space)
+
+Result: Discord bot will respond with a success message along with the a link to the Google Sheet that was edited
+
+## /viewworkorder
+
+Description: Returns the links to the Google Sheets with the provided titles (Can return up to 5 different links at once)
+
+Requirements: In order to use google sheets API you need to have credentials.json (from the Electrium [Discord Server](https://discord.com/channels/1039602649139523615/1197985610007335063/1214379316146741298) in the directory ELMO-DISCORD-BOT/
+
+Parameters:
+- \<title> : The title of the Google Sheet we want the link to
+- \<optional:title2> : The title of the second Google Sheet we want the link to
+- \<optional:title3> : The title of the third Google Sheet we want the link to
+- \<optional:title4> : The title of the fourth Google Sheet we want the link to
+- \<optional:title5> : The title of the fifth Google Sheet we want the link to
+
+Result: Discord bot will respond with a success message along with the a link(s) to the Google Sheet(s) that were requested
+
+## /sendworkorder
+
+Description: Sends an email of the workorder(s) specified to Sarah (StudentDesignCentre) along with an automated message
+
+Requirements: Must have credentials.json (from the Electrium [Discord Server](https://discord.com/channels/1039602649139523615/1197985610007335063/1214379316146741298) in the directory ELMO-DISCORD-BOT/ and must run ELMO-DISCORD-BOT/gmail_server.js (see command below) to authenticate the Electrium email for automation if it is the first time running this command on this device
+
+To authenticate emails for that device (first time)
+```
+node gmail_server.js
+```
+
+Parameters:
+- \<title> : The title of the Google Sheet we want to email
+- \<optional:title2> : The title of the second Google Sheet we want to email
+- \<optional:title3> : The title of the third Google Sheet we want to email
+- \<optional:title4> : The title of the fourth Google Sheet we want to email
+- \<optional:title5> : The title of the fifth Google Sheet we want to email
+
+Result: If successful will receive 'Email sent successfully' as a response additionally the emailed Google Sheets will be moved to the (Electrium Mobility Design Team/Finance/Logistics/Work Order/Filled forms) folder on the Electrium Google Drive
+
+
+
+
+
+
 
  
