@@ -102,3 +102,19 @@ Refer to this documentation if you ever find yourself implementing features rela
 ## [JavaScript getting started](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics/)
 
 New to JavaScript? Mozilla's documentation is a terrific place to head to! Good alternatives include, but are not limited to: [W3Schools](https://www.w3schools.com/js/), [Codecademy](https://www.codecademy.com/learn/introduction-to-javascript), and [The Modern JavaScript Tutorial](https://javascript.info/).
+
+<!------------------------------------------------------------------->
+
+# 👨‍💻 Discord Commands Documentation
+
+## /createtask <tasklistname> <taskname> <optional : description> <optional : duedate>
+
+Description: Command that creates and adds a task to a tasklist on the Electrium Clickup
+
+Parameters:\
+- <tasklistname> : the name of the tasklist that we want to add this task to (e.g. Discord Bot)
+- <taskname> :  the name of the task that we are creating (e.g. Add new discord bot command)
+- <description> : optional parameter that just specifies the description associated with the newly created task
+- <duedate> : optional parameter that just specifies the due date of the newly created task (yyyy-mm-dd format)
+
+ 
