@@ -47,18 +47,24 @@ for (const folder of commandFolders) {
 client.on('messageCreate', async (message) => {
 	// if a message is coming from google cal webhook
 	if (message.author.id === "1221908136554659900") {
-
 		try {
+			// get the role name from the message param
 			let roleName = message.embeds[0].data.fields[2].value;
-			console.log(roleName);
-			let list = [];
-			message.guild.roles.cache.forEach(role => list.push(role));
-			let roleId = "";
-			for (let role of list) {
-				if (role.name == roleName) roleId = role.id;
+			// get the role id from the server roles list
+			let roleId;
+			message.guild.roles.cache.forEach(role => {
+				if (role.name == roleName) {
+					roleId = role.id;
+				}
+			});
+			// if no role id found
+			if (!roleId) {
+				// reply w error msg
+				await message.reply("Role could not be found")
+			} else {
+				// else, ping the role
+				await message.reply(`<@&${roleId}>`);
 			}
-			if (!roleId) await message.reply("Role could not be found")
-			await message.reply(`<@&${roleId}>`);
 		} catch (error) {
 			console.error(error);
 			await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
