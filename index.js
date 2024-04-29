@@ -8,6 +8,7 @@ const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/r
 const { fetchSheetTitles } = require('./helperFunctions/google_sheet_helpers');
 
 const DISCORD_WEBHOOK_USER_ID = "1221912941255721211";
+// 1221908136554659900 nikki's test server webhook ID
 
 // Create a new client instance
 const client = new Client({
@@ -49,7 +50,7 @@ for (const folder of commandFolders) {
 // ping role when meeting starts
 client.on('messageCreate', async (message) => {
 	// if a message is coming from google cal webhook
-	if (message.author.id === DISCORD_WEBHOO_USER_ID) {
+	if (message.author.id === DISCORD_WEBHOOK_USER_ID) {
 		try {
 			// get the role name from the message param
 			let roleName = message.embeds[0].data.fields[2].value;
