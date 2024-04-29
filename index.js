@@ -8,7 +8,6 @@ const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/r
 const { fetchSheetTitles } = require('./helperFunctions/google_sheet_helpers');
 
 const DISCORD_WEBHOOK_USER_ID = "1221912941255721211";
-// 1221908136554659900 nikki's test server webhook ID
 
 // Create a new client instance
 const client = new Client({
