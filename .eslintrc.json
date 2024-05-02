@@ -1,5 +1,7 @@
 {
-	"extends": "eslint:recommended",
+	// Follow the JS Standard Code Style
+	// https://www.npmjs.com/package/eslint-config-standard
+	"extends": "standard",
 	"env": {
 		"node": true,
 		"es6": true
@@ -7,14 +9,22 @@
 	"parserOptions": {
 		"ecmaVersion": 2021
 	},
+	// Any rules here will override the JS Standard Code Style
 	"rules": {
-        "semi": ["error", "always"],
-        "no-dupe-else-if": [1],
-        "no-dupe-keys": [2],
-        "no-unused-vars": [1],
-        "require-await": [2],
-        "quotes": ["error", "double"],
-        "no-var": [2],
-        "prefer-const": [1]
+		// =======================
+		//         Errors
+		// =======================
+		"no-unused-vars": "error",
+		"no-undef": "error", 
+		"semi": ["error", "always"],
+		"quotes": ["error", "double"],
+		"prefer-const": [1],
+		"require-await": [2],
+		"indent": ["error", 4]
+
+		// =======================
+		//        Warnings
+		// =======================
+		/* Add any rules here */
 	}
 }
