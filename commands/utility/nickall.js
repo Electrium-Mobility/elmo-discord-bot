@@ -12,6 +12,7 @@ const auth = new google.auth.GoogleAuth({
 const sheetClient = auth.getClient();
 const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
 /* ------------------- */
+var hello;
 
 module.exports = {
 	data: new SlashCommandBuilder()
