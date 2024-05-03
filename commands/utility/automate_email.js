@@ -57,7 +57,7 @@ module.exports = {
 	async execute(interaction) {
         updateCSV(); // rethink the order bc token keeps expiring?
         //run updateCSV() to get list of emails
-        // sendEmails(); 
+        sendEmails(); 
         await interaction.reply({ content: `Sent emails!`, ephemeral: true });
     }
 }
