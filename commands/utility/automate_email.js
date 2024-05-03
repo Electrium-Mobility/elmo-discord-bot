@@ -6,7 +6,7 @@ const csvWriter = require('csv-write-stream');
 
 // const MEMBERS_SPREADSHEET_ID = "16jdx-mM-1kQxB2cNLaTvRDDXp82hHqTXaQSiFIuTH2s";
 const MEMBERS_SPREADSHEET_ID = "1UjimZ-KxA4btgbWzBZ_dxB5WrPgAdrYHKuT2bEkHftk";
-const RANGE = "Sheet3!A:E";
+const RANGE = "csv!A:E";
 const auth = new google.auth.GoogleAuth({
     keyFile: "./credentials.json",
     scopes: "https://www.googleapis.com/auth/spreadsheets",
@@ -57,7 +57,7 @@ module.exports = {
 	async execute(interaction) {
         updateCSV(); // rethink the order bc token keeps expiring?
         //run updateCSV() to get list of emails
-        sendEmails(); 
+        // sendEmails(); 
         await interaction.reply({ content: `Sent emails!`, ephemeral: true });
     }
 }
