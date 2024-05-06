@@ -1,19 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-
-/*  ----------------------
-Google Sheets Setup
--------------------------- */
-const { google } = require('googleapis');
-
-const auth = new google.auth.GoogleAuth({
-    keyFile: "./credentials.json",
-	scopes: [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive"],
-})
-
-const driveService = google.drive({ version: 'v3', auth }); 
-/* ------------------- */
+const { copySheet } = require('../../helperFunctions/google_sheet_helpers');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -31,23 +17,7 @@ module.exports = {
         const folderId = '1yru1fH2fYhCgTIGW5fvqiWDNeoPxDsaF'; /* Template folder id */ 
 
         // Use the Drive API to copy the template spreadsheet
-        const copiedSheet = await driveService.files.copy({
-            fileId: templateSpreadsheetId,
-            requestBody: {
-                name: title,
-                parents: [folderId],
-            },
-        });
-
-        // Share the copieds spreadsheet with your gmail account
-        await driveService.permissions.create({
-            fileId: copiedSheet.data.id,
-            requestBody: {
-                type: 'user',
-                role: 'writer', 
-                emailAddress: 'electriummobility@gmail.com' // Gmail Account
-            },
-        });
+        const copiedSheet = await copySheet(title, templateSpreadsheetId, folderId);
 
         // Reply with the spreadsheet link
         const spreadsheetUrl = `https://docs.google.com/spreadsheets/d/${copiedSheet.data.id}/edit`;

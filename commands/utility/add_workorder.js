@@ -1,22 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { getSheetIdByTitle } = require('../../helperFunctions/fetch_sheet_titles');
-const axios = require('axios');
-const cheerio = require('cheerio');
-const puppeteer = require('puppeteer');
-/*  ----------------------
-Google Sheets Setup
--------------------------- */
-const { google } = require('googleapis');
-
-const auth = new google.auth.GoogleAuth({
-    keyFile: "./credentials.json",
-	scopes: [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive"],
-})
-
-const sheetsService = google.sheets({ version: 'v4', auth });
-/* ------------------- */
+const { getSheetIdByTitle, findFirstEmptyRow, getFirstSheetId, updateCell, copyRow } = require('../../helperFunctions/google_sheet_helpers');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -84,108 +67,7 @@ module.exports = {
 
 };
 
-async function findFirstEmptyRow(spreadsheetId) {
-    try {
-        const range = `I6:I`; // Adjust 'A' to your column of interest
-        const response = await sheetsService.spreadsheets.values.get({
-            spreadsheetId,
-            range,
-        });
 
-        // 'values' is an array where each element is a row in the sheet in the specified range.
-        // If a row is empty, it won't appear in 'values', so the first empty row is at the index
-        // equal to the length of 'values' + 6 (since we started at row 6).
-        const values = response.data.values || [];
-        const firstEmptyRow = values.length + 6; // Adding 6 because array indices start at 0 and we started at row 6
-        return firstEmptyRow;
-    } catch (error) {
-        console.error('Error finding the first empty row:', error);
-        return null; // Return null or an appropriate value indicating failure
-    }
-}
-
-async function getFirstSheetId(spreadsheetId) {
-    try {
-        const response = await sheetsService.spreadsheets.get({
-            spreadsheetId: spreadsheetId,
-            fields: 'sheets.properties'
-        });
-        const sheets = response.data.sheets;
-        if (sheets.length > 0) {
-            return sheets[0].properties.sheetId; // Return the sheetId of the first sheet
-        } else {
-            console.error('No sheets found in the spreadsheet.');
-            return null;
-        }
-    } catch (error) {
-        console.error('Error fetching sheet ID:', error);
-        return null;
-    }
-}
-
-
-async function updateSumFormula(spreadsheetId, range, formula) {
-    try {
-        await sheetsService.spreadsheets.values.update({
-            spreadsheetId: spreadsheetId,
-            range: range,
-            valueInputOption: 'USER_ENTERED', // USER_ENTERED must be enabled to correctly set the formula for the cell
-            resource: {
-                values: [
-                    [formula]
-                ]
-            }
-        });
-    } catch (error) {
-        console.error('Error updating cell formula:', error);
-    }
-}
-
-
-async function updateCell(spreadsheetId, cell, value){
-    await sheetsService.spreadsheets.values.update({
-        spreadsheetId: spreadsheetId,
-        range: cell,
-        valueInputOption: 'RAW',
-        resource: {
-            values: [[value]] // Write the current link
-        }
-    });
-}
-async function copyRow(spreadsheetId, sheetId, sourceRowIndex, destinationRowIndex) {
-    const requests = [{
-        copyPaste: {
-            source: {
-                sheetId: sheetId,
-                startRowIndex: sourceRowIndex - 1,
-                endRowIndex: sourceRowIndex,
-                startColumnIndex: 0,
-                endColumnIndex: 9 
-            },
-            destination: {
-                sheetId: sheetId,
-                startRowIndex: destinationRowIndex - 1,
-                endRowIndex: destinationRowIndex,
-                startColumnIndex: 0,
-                endColumnIndex: 9 
-            },
-            pasteType: 'PASTE_NORMAL', // Copy all cell contents and formatting
-            pasteOrientation: 'NORMAL'
-        }
-    }];
-
-    try {
-        await sheetsService.spreadsheets.batchUpdate({
-            spreadsheetId: spreadsheetId,
-            resource: {
-                requests: requests
-            }
-        });
-    } catch (error) {
-        console.error('Error copying the row:', error);
-        // Handle error
-    }
-}
 
 async function extractPriceFromAmazon(url) {
     try {

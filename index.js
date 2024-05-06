@@ -3,19 +3,18 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits} = require('discord.js');
 const { token, channelId } = require('./config.json');
-const axios = require('axios');
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
 
 const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/retrieve_task_lists');
-const { fetchSheetTitles } = require('./helperFunctions/fetch_sheet_titles');
+const { fetchSheetTitles } = require('./helperFunctions/google_sheet_helpers');
+
+const DISCORD_WEBHOOK_USER_ID = "1221912941255721211";
+
 // Create a new client instance
 const client = new Client({
 	intents:
-		[GatewayIntentBits.Guilds]
+		[	GatewayIntentBits.Guilds,
+			GatewayIntentBits.GuildMessages ]
 });
-
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
@@ -46,6 +45,36 @@ for (const folder of commandFolders) {
 		}
 	}
 }
+
+// ping role when meeting starts
+client.on('messageCreate', async (message) => {
+	// if a message is coming from google cal webhook
+	if (message.author.id === DISCORD_WEBHOOK_USER_ID) {
+		try {
+			// get the role name from the message param
+			let roleName = message.embeds[0].data.fields[2].value;
+			// get the role id from the server roles list
+			let roleId;
+			message.guild.roles.cache.forEach(role => {
+				if (role.name == roleName) {
+					roleId = role.id;
+				}
+			});
+			// if no role id found
+			if (!roleId) {
+				// reply w error msg
+				await message.reply("Role could not be found")
+			} else {
+				// else, ping the role
+				await message.reply(`<@&${roleId}>`);
+			}
+		} catch (error) {
+			console.error(error);
+			await message.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		}
+	
+	}
+})
 
 //event listener
 client.on(Events.InteractionCreate, async interaction => {

@@ -1,18 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-
-/*  ----------------------
-Google Calendar API Setup
--------------------------- */
-const { google } = require('googleapis');
-
-const auth = new google.auth.GoogleAuth({
-	keyFile: "./credentials.json",
-	scopes: "https://www.googleapis.com/auth/calendar.readonly"
-})
-const calendar = google.calendar({ version: "v3", auth });
-const calendarId = "c2e4ddc715d346cd957fadf163edcded4b957fcb6381d5e4b5f503c660689de5@group.calendar.google.com";
-/* ------------------- */
-
+const { getEvents } = require('../../helperFunctions/google_sheet_helpers');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -28,16 +15,7 @@ module.exports = {
     // get array of user's roles
     let rolesList = await getRoles(user, list);
 
-    // get next 15 events from calendars
-    const res = await calendar.events.list({
-      calendarId: calendarId,
-      timeMin: new Date().toISOString(),
-      maxResults: 15,
-      singleEvents: true,
-      orderBy: 'startTime',
-    });
-    const allEvents = res.data.items;
-
+    const allEvents = await getEvents();
     let events = [];
 
     // sort through events and only get add the ones that are applicable by role
