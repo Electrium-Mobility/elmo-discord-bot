@@ -1,6 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { getSheetIdByTitle, findFirstEmptyRow, getFirstSheetId, updateCell, copyRow } = require('../../helperFunctions/google_sheet_helpers');
 
+const axios = require('axios');
+const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('addworkorder')
