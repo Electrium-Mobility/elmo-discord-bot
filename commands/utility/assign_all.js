@@ -37,7 +37,6 @@ module.exports = {
 				// assign the user the role
 				for (let position of rolesToAssign) {
 					let roleName = position.toLowerCase().replace(/\s/g, "-");
-					console.log(roleName);
 					let role = interaction.guild.roles.cache.find(role => role.name === roleName);
 					let roleId = role.id;
 
