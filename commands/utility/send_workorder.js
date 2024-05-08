@@ -13,9 +13,9 @@ const REDIRECT_URL = 'http://localhost:3000/oauth2callback'; /* Page that user w
 const FILLED_FORMS_FOLDER = "1cBG-BgIbqXxvfmdNcgmw5WRST8jWE2Pn";
 
 /* EMAIL PARAMETERS - FEEL FREE TO CHANGE FOR YOUR SPECIFIC EMAIL NEEDS */
-const EMAIL_DEST = 'StudentDesignCentreEngineering@uwaterloo.ca';
+const EMAIL_DEST = 'nlchung@uwaterloo.ca';
 const EMAIL_SUBJECT = 'Electrium Mobility - Workorder - Team Funds';
-const EMAIL_BODY = 'Hi Sarah,\n\n Please see the attached work orders \n\n Thanks\n Julian Choi';
+const EMAIL_BODY = 'Hi Sarah,\n\n Please see the attached work orders \n\n Thanks\n George Li';
 
 /* ------------------- */
 // Setup for Google sheets and drive
