@@ -38,7 +38,8 @@ module.exports = {
 				for (let position of rolesToAssign) {
 					let roleName = position.toLowerCase().replace(/\s/g, "-");
 					let role = interaction.guild.roles.cache.find(role => role.name === roleName);
-					let roleId = role.id;
+					// if roleid isnt found, let roleid be the general member role id
+					let roleId = role ? role.id : "1039687620629889057";
 
 					// get the user object from the guild
 					interaction.guild.members.fetch(userID)
@@ -46,7 +47,10 @@ module.exports = {
 							res.roles.add(roleId);
 						});
 				}
-			}
+			} else {
+				// console log emails of ppl who aren't on discord
+				console.log(data[3]);
+			} 
 		}
 		
 		await interaction.reply({ content: "Command has run successfully.", ephemeral: true });
