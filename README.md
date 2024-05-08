@@ -55,7 +55,17 @@ When developing, it is recommended to use `nodemon`:
 nodemon .
 ```
 
+
 <!------------------------------------------------------------------->
+
+
+# 🤖 Using the Bot
+
+See our [Clickup document](https://doc.clickup.com/9003010024/d/h/8c9y1z8-6311/6100afba2876ada) for more info on how to use the various commands!
+
+
+<!------------------------------------------------------------------->
+
 
 # 🎈 For Beginner Developers
 
