@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { getSheetIdByTitle, findFirstEmptyRow, getFirstSheetId, updateCell, copyRow } = require('../../helperFunctions/google_sheet_helpers');
+const { getSheetIdByTitle, findFirstEmptyRow, getFirstSheetId, updateCell, updateSumFormula, copyRow } = require('../../helperFunctions/google_sheet_helpers');
 
 const axios = require('axios');
 const cheerio = require('cheerio');
@@ -72,11 +72,15 @@ module.exports = {
 };
 
 
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
 
 async function extractPriceFromAmazon(url) {
     try {
         const response = await axios.get(url);
         const html = response.data;
+        await delay(1000); // Wait 1 second
         const $ = cheerio.load(html);
 
         const price_text = $('.aok-offscreen:first').text();
