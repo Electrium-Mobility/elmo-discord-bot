@@ -13,7 +13,7 @@ options.setAcceptInsecureCerts();
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('clickup_inv')
+		.setName('clickupinv')
 		.setDescription('sends a clickup invitation')
 		.addUserOption(option =>
 			option
