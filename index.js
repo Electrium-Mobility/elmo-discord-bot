@@ -13,7 +13,9 @@ const DISCORD_WEBHOOK_USER_ID = "1221912941255721211";
 const client = new Client({
 	intents:
 		[	GatewayIntentBits.Guilds,
-			GatewayIntentBits.GuildMessages ]
+			GatewayIntentBits.GuildMessages,
+			GatewayIntentBits.MessageContent
+		]
 });
 
 // When the client is ready, run this code (only once).
