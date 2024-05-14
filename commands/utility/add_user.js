@@ -4,9 +4,9 @@ const { getRows, addUser } = require('../../helperFunctions/google_sheet_helpers
 const prompts = [
   'What\'s your full name? (example Sherwin Chiu)',
   'What\'s your uWaterloo email? (example s36chiu@uwaterloo.ca)',
-  'What\'s your role? (example Electrical, Firmware, Mechanical)' ,
-  'What project are you working on? (example Bakfiets, Scooter, Vroom)',
-  'What program are you in? (example Computer Engineering, Mechantronics Engineering)',
+  'What\'s your role?' ,
+  'Which project are you working on?',
+  'Which program are you in?',
   'What year are you in? (example 1B, 2B, 3A)',
   'Are you Remote or In-person? (type Remote or In-person)',
   'You have been successfully added as an Electrium Member! Welcome to the team :)'
@@ -15,7 +15,7 @@ var answers = ["", "", "", "", "", "", ""]
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('createuser')
+		.setName('adduser')
     .setDescription('Create a user on Google Sheets!')
 		.addUserOption(option =>
 			option
@@ -59,7 +59,7 @@ module.exports = {
       await thread.members.add(interaction.user.id)
       await thread.members.add(user.id)
       
-      await thread.send("Please send messages slowly! :)")
+      await thread.send("Please send responses slowly! :)")
       await thread.send(prompts[0])
       var response = (await thread.messages.fetch()).first().content;
       // look. i know its stupid. but it works. please let me have this lmao
