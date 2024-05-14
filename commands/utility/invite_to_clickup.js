@@ -13,7 +13,7 @@ options.setAcceptInsecureCerts();
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('clickupinv')
+        .setName('invitetoclickup')
 		.setDescription('sends a clickup invitation')
 		.addUserOption(option =>
 			option
@@ -25,16 +25,16 @@ module.exports = {
         const username = await user.username;
         let email = await getEmail(username);
         if (!email) {
-            await interaction.reply(`This user could not be found in the Google Sheet.`);
+            await interaction.reply({ content: 'This user could not be found in the Google Sheet.', ephemeral: true });
         }
         else {
-            inviteUser(clickup_username, clickup_password, email) //config
-            await interaction.reply(`This command was run by ${interaction.user.username}`);
+            inviteUser(email) //config
+            await interaction.reply({ content: 'An email invite has been sent to the user.', ephemeral: true });
         }
     }
 }
 
-async function inviteUser(email, password, invites) {
+async function inviteUser(email) {
     const driver = await new Builder()
     .forBrowser('chrome')
     .setChromeOptions(options)
@@ -47,9 +47,8 @@ async function inviteUser(email, password, invites) {
         await new Promise(resolve => setTimeout(resolve, 3000));
 
         // Assuming your login form has input fields with these IDs
-        console.log(email);
-        await driver.findElement(By.xpath('//*[@id="login-email-input"]')).sendKeys(email);
-        await driver.findElement(By.xpath('//*[@id="login-password-input"]')).sendKeys(password);
+        await driver.findElement(By.xpath('//*[@id="login-email-input"]')).sendKeys(clickup_username);
+        await driver.findElement(By.xpath('//*[@id="login-password-input"]')).sendKeys(clickup_password);
         await driver.findElement(By.xpath('//*[@id="app-root"]/cu-login/div/div[2]/div[2]/div[1]/cu-login-form/div/form/button')).click();
 
 
@@ -69,7 +68,7 @@ async function inviteUser(email, password, invites) {
             await new Promise(resolve => setTimeout(resolve, 1000));
             
             //type emails
-            await driver.findElement(By.xpath('//*[@id="settings-main"]/cu-team-settings/cu-team-users-settings/cu-team-users-settings-view/cu-team-settings/div/div[1]/div[2]/cu-invite-team-user/div/div[1]/input')).sendKeys(invites);
+            await driver.findElement(By.xpath('//*[@id="settings-main"]/cu-team-settings/cu-team-users-settings/cu-team-users-settings-view/cu-team-settings/div/div[1]/div[2]/cu-invite-team-user/div/div[1]/input')).sendKeys(email);
             await new Promise(resolve => setTimeout(resolve, 3000));
             await driver.findElement(By.xpath('//*[@id="settings-main"]/cu-team-settings/cu-team-users-settings/cu-team-users-settings-view/cu-team-settings/div/div[1]/div[2]/cu-invite-team-user/div/button')).click();
             await new Promise(resolve => setTimeout(resolve, 5000));
