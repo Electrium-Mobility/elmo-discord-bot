@@ -83,9 +83,9 @@ Head over to the Clickup Kanban board and see if there is anything that you can 
 
 Go ham! Type and program to your heart's content! This part might take the longest and that's okay! Being slow is all part of the learning progress and it gets better the more you code. Don't forget to test everything before moving onto the next step!
 
-## 4️⃣ Create a Push Request
+## 4️⃣ Create a Pull Request
 
-Once everything is looking good, it's time to merge it to the `main` branch. It's like writing a book. You just finished writing an amazing story and it's time to have it sent to a publisher. A push request (PR) says "Hey I'm ready to publish my contributions!" Just like how publishing a book works, after putting in a PR, your code will be reviewed by a team member to verify if everything looks good or not. Some things may be pointed out for some revision, but eventually, your PR will be approved and then you can merge into the `main` branch!
+Once everything is looking good, it's time to merge it to the `main` branch. It's like writing a book. You just finished writing an amazing story and it's time to have it sent to a publisher. A pull request (PR) says "Hey I'm ready to publish my contributions!" Just like how publishing a book works, after putting in a PR, your code will be reviewed by a team member to verify if everything looks good or not. Some things may be pointed out for some revision, but eventually, your PR will be approved and then you can merge into the `main` branch!
 
 ## 5️⃣ Repeat!
 
