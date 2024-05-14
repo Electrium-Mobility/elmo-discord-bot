@@ -24,8 +24,9 @@ module.exports = {
 
 		// iterate through sheet
 		for (let data of entries) {
+			let username = data[4].toLowerCase();
 			// get user id from username
-			let userID = discordmembers.get(data[4]);
+			let userID = discordmembers.get(username);
 
 			// array of roles to assign
 			let rolesToAssign = [];
