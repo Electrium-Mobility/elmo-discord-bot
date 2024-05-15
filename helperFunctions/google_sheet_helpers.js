@@ -59,7 +59,7 @@ async function addUser(username, answers) {
     valueInputOption: "USER_ENTERED",
     resource: {
         majorDimension: "ROWS",
-        values: [[lastRow, answers[0], "", answers[1], username, answers[2], answers[3], "", answers[4], answers[5], answers[6]]]
+        values: [[lastRow, answers[0], answers[1], answers[2], username, answers[3], answers[4], "", answers[5], answers[6], answers[7]]]
     } 
     })
 }

@@ -77,6 +77,10 @@ module.exports = {
         setTimeout(() => {
         }, 1000);
       }
+
+      // grab WatIAm by splitting email at @ sign, insert it into answers array
+      answers.splice(1, 0, answers[1].split("@")[0]);
+      
       console.log(answers);
       addUser(username, answers);
 
