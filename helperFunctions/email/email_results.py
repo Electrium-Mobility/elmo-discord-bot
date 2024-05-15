@@ -22,8 +22,8 @@ if os.path.exists("./helperFunctions/email/token.json"):
     )
 
 if not creds or not creds.valid:
-    # print(creds)
-    # print(creds.expired)
+    print(creds)
+    print(creds.expired)
     if creds and creds.expired and creds.refresh_token:
         creds.refresh(Request())
     else:
