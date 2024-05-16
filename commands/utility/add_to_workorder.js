@@ -7,7 +7,7 @@ const puppeteer = require('puppeteer');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('addworkorder')
+		.setName('addtoworkorder')
         .setDescription('Adds work order to a pre-existing Google sheet')
 		.addStringOption(option =>
 			option.setName('title')
@@ -16,7 +16,7 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('links')
-                .setDescription('The link of the order that we want to add to the Google sheet')
+                .setDescription('The links to the items that we want to add to the Google sheet')
                 .setRequired(true)),
 
     async execute(interaction) {

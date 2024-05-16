@@ -9,7 +9,7 @@ const octokit = new Octokit({
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('git_inv')
+		.setName('invitetogithub')
 		.setDescription('sends a github invitation')
 		.addStringOption(option =>
 			option

@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType} = require('discord.js');
 const { getRows, addUser } = require('../../helperFunctions/google_sheet_helpers.js');
+// const { inviteUserToClickup } = require('./invite_to_clickup.js');
 
 const prompts = [
   'What\'s your full name? (example Sherwin Chiu)',
@@ -15,7 +16,7 @@ var answers = ["", "", "", "", "", "", ""]
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('createuser')
+		.setName('addusertosheet')
     .setDescription('Create a user on Google Sheets!')
 		.addUserOption(option =>
 			option
@@ -76,8 +77,14 @@ module.exports = {
         setTimeout(() => {
         }, 1000);
       }
+
+      // grab WatIAm by splitting email at @ sign, insert it into answers array
+      answers.splice(1, 0, answers[1].split("@")[0]);
+      
       console.log(answers);
       addUser(username, answers);
+
+      // inviteUserToClickup(answers[1]);
 
       await thread.delete()
       await user.send("Success! You've been added as an Electrium Member. Ask Sherwin for any questions you have!")
