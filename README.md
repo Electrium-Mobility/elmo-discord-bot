@@ -36,7 +36,7 @@ npm i
 3. Obtain config tokens
 
 ```
-Go into Discord, find the pinned messages for config.json and credentials.json. Download and put into your directory.
+Go into Discord, find the pinned messages for config.json and credentials.json in the config-and-credentials channel. Download and put into your directory.
 ```
 
 4. Run this command to deploy commands:
