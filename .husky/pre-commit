@@ -1,0 +1,2 @@
+# npx eslint . --ext .js
+# Remove this dollar sign and message when all files properly follow the linting rules

@@ -4,7 +4,8 @@
   "description": "electrium discord bot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "cors": "^2.8.5",
     "csv-write-stream": "^2.0.0",
     "discord.js": "^14.14.1",
+    "eslint-config-standard": "^17.1.0",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "googleapis": "^105.0.0",
@@ -25,6 +27,9 @@
     "selenium-webdriver": "^4.17.0"
   },
   "devDependencies": {
-    "eslint": "^8.56.0"
+    "eslint": "^8.56.0",
+    "eslist": "^1.0.0-beta.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2"
   }
 }

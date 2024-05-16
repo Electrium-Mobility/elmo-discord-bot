@@ -112,3 +112,12 @@ Refer to this documentation if you ever find yourself implementing features rela
 ## [JavaScript getting started](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics/)
 
 New to JavaScript? Mozilla's documentation is a terrific place to head to! Good alternatives include, but are not limited to: [W3Schools](https://www.w3schools.com/js/), [Codecademy](https://www.codecademy.com/learn/introduction-to-javascript), and [The Modern JavaScript Tutorial](https://javascript.info/).
+
+## [ESLint Configuration](https://eslint.org/docs/latest/use/getting-started)
+Please refer to the following guide to apply linting rules to specific JavaScript files. The reason for this is to ensure that code written to this repository follows as much consistency wherever possible.
+
+However, all you need to know is this: If you would like to verify your code follows the rules configured in the `.eslintrc.json` file, open a terminal and run the following command to find any errors or warnings.
+
+```
+npx eslint DIR_TO_YOUR_FILE.js
+```
