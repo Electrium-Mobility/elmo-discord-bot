@@ -9,20 +9,31 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "github:discordjs/opus",
+    "@discordjs/voice": "^0.16.1",
+    "@distube/ytdl-core": "^4.13.3",
     "@google-cloud/local-auth": "^2.1.0",
     "@octokit/rest": "^20.0.2",
     "axios": "^1.6.5",
     "body-parser": "^1.20.2",
     "child_process": "^1.0.2",
     "cors": "^2.8.5",
+
+    "discord-player": "^6.6.7",
+
     "csv-write-stream": "^2.0.0",
+
     "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "googleapis": "^105.0.0",
+    "play-dl": "^1.9.7",
     "mime-types": "^2.1.35",
+
+    "selenium-webdriver": "^4.17.0",
+    "youtube-dl-exec": "^2.5.7"
     "nodemon": "^3.1.0",
-    "selenium-webdriver": "^4.17.0"
   },
   "devDependencies": {
     "eslint": "^8.56.0"
