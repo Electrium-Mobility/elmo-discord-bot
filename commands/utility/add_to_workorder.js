@@ -1,5 +1,9 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { getSheetIdByTitle, findFirstEmptyRow, getFirstSheetId, updateCell, copyRow } = require('../../helperFunctions/google_sheet_helpers');
+const { getSheetIdByTitle, findFirstEmptyRow, getFirstSheetId, updateCell, updateSumFormula, copyRow } = require('../../helperFunctions/google_sheet_helpers');
+
+const axios = require('axios');
+const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -39,6 +43,19 @@ module.exports = {
                     await copyRow(spreadSheetId, sheetId, currentRow, currentRow + 1);
                     await updateCell(spreadSheetId, `A${currentRow + 1}`, currentRow - 4);
                 }
+                if(link.includes('amazon')) {
+                    const price = await extractPriceFromAmazon(link);
+                    if (price) {
+                        const priceCell = `E${currentRow}`;
+                        await updateCell(spreadSheetId, priceCell, price);
+                    }
+                } else if (link.includes('aliexpress')) {
+                    const price = await extractPriceFromAliExpress(link);
+                    if (price) {
+                        const priceCell = `E${currentRow}`;
+                        await updateCell(spreadSheetId, priceCell, price);
+                    }
+                }
                 const cell = `I${currentRow}`; // The cell we are currently writing to in this iteration
                 await updateCell(spreadSheetId, cell, link);
                 currentRow++;
@@ -51,4 +68,57 @@ module.exports = {
             await interaction.editReply(`Failed to modify the work order in the spreadsheet.`);
         }
     }
+
 };
+
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+
+async function extractPriceFromAmazon(url) {
+    try {
+        const response = await axios.get(url);
+        const html = response.data;
+        await delay(1000); // Wait 1 second
+        const $ = cheerio.load(html);
+
+        const price_text = $('.aok-offscreen:first').text();
+        const regex = /\$[\d.]+/;
+        const match = price_text.match(regex);
+        const price = match ? match[0] : null;
+        return price
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function extractPriceFromAliExpress(url) {
+    try {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(url);
+
+        // Wait for the first digit element to be visible
+        await page.waitForSelector('span.es--char53--VKKip5c');
+
+        // Extract the first digit
+        const firstDigit = await page.evaluate(() => {
+            const element = document.querySelector('span.es--char53--VKKip5c');
+            return element ? element.textContent.trim() : null;
+        });
+
+        const restOfDigits = await page.evaluate(() => {
+            const element = document.querySelectorAll('span.es--char--Vcv75ku');
+            return element ? (element[1].textContent + element[2].textContent + element[3].textContent).trim() : null;
+        });
+        await browser.close();
+
+        const price = '$' + firstDigit + restOfDigits;
+        return price;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
