@@ -21,6 +21,7 @@
     "fs": "^0.0.1-security",
     "googleapis": "^105.0.0",
     "mime-types": "^2.1.35",
+    "nodemon": "^3.1.0",
     "selenium-webdriver": "^4.17.0"
   },
   "devDependencies": {
