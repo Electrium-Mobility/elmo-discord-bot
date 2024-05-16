@@ -9,7 +9,7 @@ module.exports = {
 		// Define the parameters for the /createtask command
 		// /createtask <tasklistname> <taskname> <description: optional> <due date: optional>
         // required params
-        .setName('createtask')
+        .setName('createclickuptask')
         .setDescription('Creates tasks and adds them to a task list for a specific ClickUp space')
         .addStringOption(option => 
             option.setName('tasklistname')
