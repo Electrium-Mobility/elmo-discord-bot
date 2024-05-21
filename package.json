@@ -16,7 +16,7 @@
     "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "csv-write-stream": "^2.0.0",
-    "discord.js": "^14.14.1",
+    "discord.js": "^14.15.2",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "googleapis": "^105.0.0",
@@ -24,6 +24,6 @@
     "selenium-webdriver": "^4.17.0"
   },
   "devDependencies": {
-    "eslint": "^8.56.0"
+    "eslint": "^9.3.0"
   }
 }
