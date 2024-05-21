@@ -30,7 +30,7 @@ brew install node
 ```
 
 ```
-npm i
+npm ci
 ```
 
 3. Obtain config tokens
