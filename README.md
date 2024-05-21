@@ -32,6 +32,8 @@ brew install node
 ```
 npm ci
 ```
+Similar to `npm i`, see [documentation](https://docs.npmjs.com/cli/v10/commands/npm-ci) for more info.
+
 
 3. Obtain config tokens
 
