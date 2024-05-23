@@ -13,7 +13,7 @@ options.setAcceptInsecureCerts();
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('altium_inv')
-		.setDescription('sends a clickup invitation')
+		.setDescription('sends an Altium invitation')
 		.addStringOption(option =>
 			option
 				.setName('email')
