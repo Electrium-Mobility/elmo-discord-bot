@@ -8,7 +8,7 @@ const { getEmail } = require('../../helperFunctions/google_sheet_helpers.js');
 const options = new chrome.Options();
 options.addArguments('--ignore-certificate-errors');
 options.addArguments('--ignore-ssl-errors');
-// options.addArguments('--headless');
+options.addArguments('--headless');
 options.setAcceptInsecureCerts();
 
 module.exports = {
