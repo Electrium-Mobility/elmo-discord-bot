@@ -63,7 +63,7 @@ module.exports = {
                 await interaction.editReply('Failed to create task. Please check task list name and your ClickUp configuration.');
             }
         } catch (error) {
-            console.error('Error in creating ClickUp task:', error);
+            console.error('Error in creating ClickUp task:');
             await interaction.editReply('An error occurred while creating the task.');
         }
     },
@@ -77,7 +77,7 @@ async function findTaskIdByName(taskListName) {
         const matchingList = allLists.find(list => list.name.toLowerCase() === taskListName.toLowerCase());
         return matchingList ? matchingList.id : null;
     } catch (error) {
-        console.error(`Error finding task list by name: ${taskListName}`, error);
+        console.error(`Error finding task list by name: ${taskListName}`);
         throw error;
     }
 }

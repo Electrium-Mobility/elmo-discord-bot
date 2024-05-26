@@ -1,17 +1,6 @@
-const { SlashCommandBuilder, PermissionFlagsBits, ChannelType} = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, SlashCommandBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, PermissionFlagsBits, ChannelType} = require('discord.js');
 const { getRows, addUser } = require('../../helperFunctions/google_sheet_helpers.js');
 
-const prompts = [
-  'What\'s your full name? (example Sherwin Chiu)',
-  'What\'s your uWaterloo email? (example s36chiu@uwaterloo.ca)',
-  'What\'s your role?' ,
-  'Which project are you working on?',
-  'Which program are you in?',
-  'What year are you in? (example 1B, 2B, 3A)',
-  'Are you Remote or In-person? (type Remote or In-person)',
-  'You have been successfully added as an Electrium Member! Welcome to the team :)'
-]
-var answers = ["", "", "", "", "", "", ""]
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -34,17 +23,18 @@ module.exports = {
     if (data) {
       await interaction.reply({
         embeds: [{
-           description: `This member is already on the Electrium Member List!`,
+          description: `This member is already on the Electrium Member List!`,
         }],
         ephemeral: true
-     });
+      });
     } else {
+      // open a thread
       await interaction.reply({
         embeds: [{
-           description: `Starting Interactive User Session. User is in creation menu.`,
+          description: `Starting Interactive User Session. User is in creation menu.`,
         }],
         ephemeral: true
-     });
+      });
       
       ephemeral: true
       const channel = interaction.channel;
@@ -58,24 +48,169 @@ module.exports = {
       });
       await thread.members.add(interaction.user.id)
       await thread.members.add(user.id)
+
+
+      var answers = ["", "", "", "", "", "", ""]
+
+
+
+      /* ----------------------------------
+      BUILD SELECT MENUS + BUTTON SELECTS
+      ------------------------------------ */
+
+
+      // build select menus
+      const roleSelect = new StringSelectMenuBuilder()
+        .setCustomId('role')
+        .setPlaceholder('Select your role!')
+        .addOptions(
+          new StringSelectMenuOptionBuilder()
+            .setLabel('Firmware')
+            .setValue('Firmware'),
+          new StringSelectMenuOptionBuilder()
+            .setLabel('Electrical')
+            .setValue('Electrical'),
+          new StringSelectMenuOptionBuilder()
+            .setLabel('Mechanical')
+            .setValue('Mechanical'),
+          new StringSelectMenuOptionBuilder()
+            .setLabel('Webdev')
+            .setValue('Webdev'),
+          new StringSelectMenuOptionBuilder()
+            .setLabel('Finance')
+            .setValue('Finance'),
+          new StringSelectMenuOptionBuilder()
+            .setLabel('Marketing')
+            .setValue('Marketing'),
+          new StringSelectMenuOptionBuilder()
+            .setLabel('Management')
+            .setValue('Management'),
+        );
+
+      const projectSelect = new StringSelectMenuBuilder()
+        .setCustomId('project')
+        .setPlaceholder('Select your project!')
+        .addOptions(
+          // new StringSelectMenuOptionBuilder()
+          //   .setLabel('OneWheel S24')
+          //   .setValue('OneWheel S24'),
+          // new StringSelectMenuOptionBuilder()
+          //   .setLabel('OneWheel W24')
+          //   .setValue('OneWheel W24'),
+          // new StringSelectMenuOptionBuilder()
+          //   .setLabel('Skateboard W24')
+          //   .setValue('Skateboard W24'),
+          // new StringSelectMenuOptionBuilder()
+          //   .setLabel('CF Skateboard')
+          //   .setValue('CF Skateboard'),
+          // new StringSelectMenuOptionBuilder()
+          //   .setLabel('Bakfiets W24')
+          //   .setValue('Bakfiets W24'),
+          // new StringSelectMenuOptionBuilder()
+          //   .setLabel('QuickMefs W24')
+          //   .setValue('QuickMefs W24'),
+          new StringSelectMenuOptionBuilder()
+            .setLabel('GoKart')
+            .setValue('GoKart'),
+        );
+
+      const yearSelect = new StringSelectMenuBuilder()
+        .setCustomId('project')
+        .setPlaceholder('Select your project!')
+        .addOptions(
+          new StringSelectMenuOptionBuilder()
+            .setLabel('1A')
+            .setValue('1A'),
+          new StringSelectMenuOptionBuilder()
+            .setLabel('1B')
+            .setValue('1B'),
+      );
       
-      await thread.send("Please send responses slowly! :)")
-      await thread.send(prompts[0])
-      var response = (await thread.messages.fetch()).first().content;
-      // look. i know its stupid. but it works. please let me have this lmao
-      for (let i = 0; i < answers.length; i++){
-        response = (await thread.messages.fetch()).first().content;
-        setTimeout(() => {
-        }, 1000);
+
+
+
+
+		const remoteButton = new ButtonBuilder()
+			.setCustomId('remote')
+			.setLabel('Remote')
+			.setStyle(ButtonStyle.Primary);
+
+		const inPersonButton = new ButtonBuilder()
+			.setCustomId('inPerson')
+			.setLabel('In-Person')
+			.setStyle(ButtonStyle.Secondary);
+      
+      // build action rows
+      const roleRow = new ActionRowBuilder()
+        .addComponents(roleSelect);
+      const projectRow = new ActionRowBuilder()
+        .addComponents(projectSelect);
+      const yearRow = new ActionRowBuilder()
+        .addComponents(yearSelect);
+      const locationRow = new ActionRowBuilder()
+        .addComponents(remoteButton, inPersonButton);
+
+      /* ----------------------------------- */
+
+      const prompts = [
+        'What\'s your full name? (example Sherwin Chiu)',
+        'What\'s your uWaterloo email? (example s36chiu@uwaterloo.ca)',
+        {
+          content: 'What\'s your role?',
+          components: [roleRow]
+        },
+        {
+          content: 'Which project are you working on?',
+          components: [projectRow]
+        },
+        'Which program are you in?',
+        {
+          content: 'What year are you in? (current or upcoming school term)',
+          components: [yearRow]
+        },
+        {
+          content: 'Are you remote or in-person?',
+          components: [locationRow]
+        },
+        'You have been successfully added as an Electrium Member! Welcome to the team :)'
+      ]
         
-        while (response.includes(prompts[i])){
-          response = (await thread.messages.fetch()).first().content;
+      await thread.send("Please send responses slowly! :)");
+
+      for (let i = 0; i < answers.length; i++){
+
+        // look. i know its stupid. but it works. please let me have this lmao
+        // if the prompt is one of the open ended questions without options
+        if (i === 0 || i === 1 || i === 4) {
+          await thread.send(prompts[i]);
+          var response = (await thread.messages.fetch()).first().content;
+          setTimeout(() => {
+          }, 1000);
+          
+          while (response.includes(prompts[i])){
+            response = (await thread.messages.fetch()).first().content;
+          }
+          answers[i] = response;
+        } else if (i === 6) {
+          // button select
+
+        } else {
+          // string select from dropdown menu
+          const response = await thread.send(prompts[i]);
+          const collector = response.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 3_600_000 });
+          setTimeout(() => {
+          }, 1000);
+          collector.on('collect', async int => {
+            const selection = int.values[0];
+            answers[i] = selection;
+          });
+          setTimeout(() => {
+          }, 1000);
         }
-        await thread.send(prompts[i+1])
-        answers[i] = response
         setTimeout(() => {
         }, 1000);
       }
+      // log user's response
       console.log(answers);
       addUser(username, answers);
 
