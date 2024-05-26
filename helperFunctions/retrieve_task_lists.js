@@ -9,7 +9,7 @@ async function updateLocalTaskLists() {
 		localTaskLists = await getAllTaskLists();
 		console.log("Local task lists updated succesfully");
 	} catch (error){
-		console.error('Failed to update local task lists', error);
+		// console.error('Failed to update local task lists', error);
 	}
 }
 
@@ -51,7 +51,7 @@ async function getSpaces() {
         const response = await axios.get(url, config);
         return response.data.spaces;
     } catch (error) {
-        console.error('Error fetching spaces from ClickUp:', error);
+        // console.error('Error fetching spaces from ClickUp:', error);
         throw error;
     }
 }
@@ -66,7 +66,7 @@ async function getFolderlessLists(spaceId) {
         const response = await axios.get(url, config);
         return response.data.lists;
     } catch (error) {
-        console.error(`Error in getFolderlessLists for space ID ${spaceId}:`, error);
+        // console.error(`Error in getFolderlessLists for space ID ${spaceId}:`, error);
         throw error;
     }
 }
@@ -81,7 +81,7 @@ async function getFolders(spaceId) {
         const response = await axios.get(url, config);
         return response.data.folders;
     } catch (error) {
-        console.error('Error fetching folders from ClickUp:', error);
+        // console.error('Error fetching folders from ClickUp:', error);
         throw error;
     }
 }
@@ -96,7 +96,7 @@ async function getLists(folderId) {
         const response = await axios.get(url, config);
         return response.data.lists;
     } catch (error) {
-        console.error('Error fetching lists from ClickUp:', error);
+        // console.error('Error fetching lists from ClickUp:', error);
         throw error;
     }
 }

@@ -14,6 +14,7 @@
     "@distube/ytdl-core": "^4.13.3",
     "@google-cloud/local-auth": "^2.1.0",
     "@octokit/rest": "^20.0.2",
+    "@web-scrobbler/metadata-filter": "^3.1.0",
     "axios": "^1.6.5",
     "body-parser": "^1.20.2",
     "child_process": "^1.0.2",
