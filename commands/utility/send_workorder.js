@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const { getSheetIdByTitle } = require('../../helperFunctions/google_sheet_helpers');
+const { getSheetIdByTitle } = require('../../helperFunctions/google_API_helpers');
 const { gmail_id, gmail_secret_id } = require('../../config.json')
 
 const { google } = require('googleapis');

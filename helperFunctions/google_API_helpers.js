@@ -85,6 +85,9 @@ async function getEmail(username) {
     }
 }
 
+/*  ----------------------
+Google Calendar Functions
+-------------------------- */
 async function getEvents() {
     // get next 15 events from calendars
     const res = await calendar.events.list({

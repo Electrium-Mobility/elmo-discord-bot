@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { copySheet } = require('../../helperFunctions/google_sheet_helpers');
+const { copySheet } = require('../../helperFunctions/google_API_helpers');
 
 module.exports = {
 	data: new SlashCommandBuilder()

@@ -3,7 +3,7 @@ const chrome = require('selenium-webdriver/chrome');
 const { SlashCommandBuilder } = require('discord.js');
 const { clickup_username } = require('../../credentials.json');
 const { clickup_password } = require('../../credentials.json');
-const { getEmail } = require('../../helperFunctions/google_sheet_helpers.js');
+const { getEmail } = require('../../helperFunctions/google_API_helpers.js');
 
 const options = new chrome.Options();
 options.addArguments('--ignore-certificate-errors');

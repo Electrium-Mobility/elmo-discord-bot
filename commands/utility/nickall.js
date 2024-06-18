@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
-const { getRows } = require('../../helperFunctions/google_sheet_helpers');
+const { getRows } = require('../../helperFunctions/google_API_helpers');
 
 module.exports = {
 	data: new SlashCommandBuilder()

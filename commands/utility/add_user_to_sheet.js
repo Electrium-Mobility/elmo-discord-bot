@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType} = require('discord.js');
-const { getRows, addUser } = require('../../helperFunctions/google_sheet_helpers.js');
+const { getRows, addUser } = require('../../helperFunctions/google_API_helpers.js');
 // const { inviteUserToClickup } = require('./invite_to_clickup.js');
 
 const prompts = [

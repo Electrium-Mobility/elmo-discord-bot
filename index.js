@@ -13,7 +13,7 @@ const { Player } = require("discord-player");
 
 
 const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/retrieve_task_lists');
-const { fetchSheetTitles } = require('./helperFunctions/google_sheet_helpers');
+const { fetchSheetTitles } = require('./helperFunctions/google_API_helpers');
 
 const DISCORD_WEBHOOK_USER_ID = "1221912941255721211";
 
