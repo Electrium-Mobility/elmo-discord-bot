@@ -44,7 +44,6 @@ module.exports = {
         autoArchiveDuration: 60, // Optional: Auto-archive after 60 minutes
         delete: 30,
         type: ChannelType.PrivateThread,
-        //memberIds: [interaction.user.id, user.id], // Add the user who triggered the command
       });
       await thread.members.add(interaction.user.id)
       await thread.members.add(user.id)
@@ -125,10 +124,6 @@ module.exports = {
             .setLabel('1B')
             .setValue('1B'),
       );
-      
-
-
-
 
 		const remoteButton = new ButtonBuilder()
 			.setCustomId('remote')
@@ -157,20 +152,24 @@ module.exports = {
         'What\'s your uWaterloo email? (example s36chiu@uwaterloo.ca)',
         {
           content: 'What\'s your role?',
-          components: [roleRow]
+          components: [roleRow],
+          fetchReply: true
         },
         {
           content: 'Which project are you working on?',
-          components: [projectRow]
+          components: [projectRow],
+          fetchReply: true
         },
         'Which program are you in?',
         {
           content: 'What year are you in? (current or upcoming school term)',
-          components: [yearRow]
+          components: [yearRow],
+          fetchReply: true
         },
         {
           content: 'Are you remote or in-person?',
-          components: [locationRow]
+          components: [locationRow],
+          fetchReply: true
         },
         'You have been successfully added as an Electrium Member! Welcome to the team :)'
       ]
@@ -200,12 +199,15 @@ module.exports = {
           const collector = response.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 3_600_000 });
           setTimeout(() => {
           }, 1000);
-          collector.on('collect', async int => {
-            const selection = int.values[0];
-            answers[i] = selection;
-          });
-          setTimeout(() => {
-          }, 1000);
+          // while (answers[i] == "") {
+            collector.on('collect', async int => {
+              const selection = int.values[0];
+              answers[i] = selection;
+              console.log(answers[i]);
+            });
+            setTimeout(() => {
+            }, 1000);
+          // }
         }
         setTimeout(() => {
         }, 1000);
