@@ -3,7 +3,7 @@ const { createEvent } = require('../../helperFunctions/google_API_helpers');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('create_calendar_event')
+		.setName('createcalendarevent')
 		.setDescription('Create a Google calendar event')
 		.addStringOption(option => 
             option.setName('eventname')
