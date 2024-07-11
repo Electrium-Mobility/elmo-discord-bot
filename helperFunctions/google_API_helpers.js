@@ -100,6 +100,20 @@ async function getEvents() {
     return res.data.items;
 }
 
+async function createEvent(event) {
+    calendar.events.insert({
+        auth: auth,
+        calendarId: calendarId,
+        resource: event,
+    }, function(err, event) {
+        if (err) {
+          console.log('There was an error contacting the Calendar service: ' + err);
+          return;
+        }
+        console.log('Event created: %s', event.htmlLink);
+    });
+}
+
 /*  ----------------------
 Workorder-Related Functions
 -------------------------- */
@@ -269,6 +283,7 @@ module.exports = {
     addUser,
     getEmail,
     getEvents,
+    createEvent,
     getRows,
     copySheet
 };
