@@ -45,7 +45,7 @@ function sendEmails(){
 }
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('send_emails')
+		.setName('sendemails')
 		.setDescription('sends acceptance email to members'),
 	async execute(interaction) {
         // updateCSV();
