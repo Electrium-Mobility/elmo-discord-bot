@@ -1,8 +1,16 @@
 // Require the necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
+require("dotenv").config();
 const { Client, Collection, Events, GatewayIntentBits} = require('discord.js');
 const { token, channelId } = require('./config.json');
+
+const axios = require('axios');
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { Player } = require("discord-player");
+
 
 const { updateLocalTaskLists, getLocalTaskLists } = require('./helperFunctions/retrieve_task_lists');
 const { fetchSheetTitles } = require('./helperFunctions/google_sheet_helpers');
@@ -12,8 +20,7 @@ const DISCORD_WEBHOOK_USER_ID = "1221912941255721211";
 // Create a new client instance
 const client = new Client({
 	intents:
-		[	GatewayIntentBits.Guilds,
-			GatewayIntentBits.GuildMessages ]
+		[GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
 });
 
 // When the client is ready, run this code (only once).
@@ -145,3 +152,6 @@ client.on(Events.InteractionCreate, async interaction => {
 
 // Log in to Discord with your client's token
 client.login(token);
+
+// Music player
+client.player = new Player(client, {});

@@ -38,7 +38,7 @@ Similar to `npm i`, see [documentation](https://docs.npmjs.com/cli/v10/commands/
 3. Obtain config tokens
 
 ```
-Go into Discord, find the pinned messages for config.json and credentials.json. Download and put into your directory.
+Go into Discord, find the pinned messages for config.json and credentials.json in the config-and-credentials channel. Download and put into your directory.
 ```
 
 4. Run this command to deploy commands:
@@ -57,7 +57,17 @@ When developing, it is recommended to use `nodemon`:
 nodemon .
 ```
 
+
 <!------------------------------------------------------------------->
+
+
+# 🤖 Using the Bot
+
+See our [Clickup document](https://doc.clickup.com/9003010024/d/h/8c9y1z8-6311/6100afba2876ada) for more info on how to use the various commands!
+
+
+<!------------------------------------------------------------------->
+
 
 # 🎈 For Beginner Developers
 
@@ -75,9 +85,9 @@ Head over to the Clickup Kanban board and see if there is anything that you can 
 
 Go ham! Type and program to your heart's content! This part might take the longest and that's okay! Being slow is all part of the learning progress and it gets better the more you code. Don't forget to test everything before moving onto the next step!
 
-## 4️⃣ Create a Push Request
+## 4️⃣ Create a Pull Request
 
-Once everything is looking good, it's time to merge it to the `main` branch. It's like writing a book. You just finished writing an amazing story and it's time to have it sent to a publisher. A push request (PR) says "Hey I'm ready to publish my contributions!" Just like how publishing a book works, after putting in a PR, your code will be reviewed by a team member to verify if everything looks good or not. Some things may be pointed out for some revision, but eventually, your PR will be approved and then you can merge into the `main` branch!
+Once everything is looking good, it's time to merge it to the `main` branch. It's like writing a book. You just finished writing an amazing story and it's time to have it sent to a publisher. A pull request (PR) says "Hey I'm ready to publish my contributions!" Just like how publishing a book works, after putting in a PR, your code will be reviewed by a team member to verify if everything looks good or not. Some things may be pointed out for some revision, but eventually, your PR will be approved and then you can merge into the `main` branch!
 
 ## 5️⃣ Repeat!
 
