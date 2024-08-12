@@ -7,4 +7,4 @@ npm install
 node deploy-commands.js
 
 # Start the bot
-node .
+node .  
