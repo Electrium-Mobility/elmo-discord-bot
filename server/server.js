@@ -31,7 +31,7 @@ app.post("/webhook", (req, res) => {
         }
         console.log(`Git Pull Output: ${stdout}`);
 
-        exec("pm2 restart bot", (err, stdout, stderr) => {
+        exec("pm2 restart all", (err, stdout, stderr) => {
             if (err) {
                 console.error(`Error restarting bot: ${err}`);
                 return res.status(500).send("Error restarting bot");
