@@ -12,15 +12,16 @@ module.exports = {
             env: {
                 NODE_ENV: "production",
             },
-            exec_mode: "series", // Ensure commands run in sequence
+            exec_mode: "cluster", // Ensure commands run in sequence
             exec_interpreter: "none", // Use the system's default interpreter
             // Set the sequence of commands
             script: "./deploy-commands.sh",
         },
         {
             name: "webhook-listener",
-            script: "server.js",
+    	    script: "node server.js",
             cwd: "/elmo-discord-bot/server",
+	    exec_mode: "fork",
             instances: 1,
             autorestart: true,
             watch: false,
